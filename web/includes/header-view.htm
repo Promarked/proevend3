@@ -1,0 +1,121 @@
+<div class="vd_top-menu-wrapper">
+    <div class="container light-top-menu menu-search-style-2">
+        <div class="vd_top-nav vd_nav-width  panel-menu-style-2">
+            <div class="vd_panel-header">
+                <div class="logo">
+                    <a href="../index.html"><img alt="logo" src="../img/logo/logo-sample-white.png"></a>
+                </div>
+                <!-- logo -->
+                <div class="vd_panel-menu  hidden-sm hidden-xs">
+
+
+                </div>
+                <div class="vd_panel-menu left-pos visible-sm visible-xs">
+
+                        <span class="menu" data-action="toggle-navbar-left" ng-click="$$root.toggleNavmenu()">
+                            <i class="fa fa-bars"></i>
+                        </span>
+
+                </div>
+                <div class="vd_panel-menu hidden-sm visible-xs">
+                	<span class="menu " data-action="submenu" ng-click="$$root.toggleSubmenu()">
+	                    <i class="fa fa-chevron-down"></i>
+                    </span>
+                </div>
+                <!-- vd_panel-menu -->
+            </div>
+            <!-- vd_panel-header -->
+
+        </div>
+        <div class="vd_container">
+            <div class="row">
+                <div class="col-sm-5 col-xs-12">
+
+
+                </div>
+                <div class="col-sm-7 col-xs-12">
+                    <div class="vd_mega-menu-wrapper menu-notify">
+
+                        <div class="vd_mega-menu pull-right">
+
+                            <ul class="mega-ul">
+                                <li id="top-menu-people" class="one-big-icon mega-li">
+                                    <a class="mega-link notify-action" ng-click="$$submenu.setup('people')">
+                                        <span class="mega-icon"><i class="fa fa-users"></i></span>
+                                        <span class="badge vd_bg-red">1</span>
+                                    </a>
+                                </li>
+
+                                <li id="top-menu-news" class="one-big-icon mega-li">
+                                    <a class="mega-link notify-action" ng-click="$$submenu.setup('news')">
+                                        <span class="mega-icon"><i class="fa fa-globe"></i></span>
+                                        <span class="badge vd_bg-red">51</span>
+                                    </a>
+                                </li>
+
+                                <li id="top-menu-user" class="profile mega-li">
+                                    <a href="javascript:void(0)" class="mega-link notify-action" ng-click="$$submenu.setup('user')">
+                                        <span class="mega-image">
+                                            <img src="../img/avatar/avatar.jpg" alt="example image"/>
+                                        </span>
+                                        <span class="mega-name">
+                                            Caroline <i class="fa fa-caret-down fa-fw"></i>
+                                        </span>
+                                    </a>
+
+                                </li>
+
+
+                            </ul>
+
+                            <!-- Head menu search form ends -->
+                        </div>
+                        <div class="col col-lg-4 col-md-6 col-sm-8 notify-col">
+
+                            <div class="panel widget light-widget notify-pane">
+                                <div class="panel-heading no-title notify-heading">
+
+
+                                    <!-- vd_panel-menu -->
+
+                                </div>
+                                <div class="panel-body-list">
+                                    <h4 class="notify-title" ng-bind="$$submenu.title">Notificaciones</h4>
+                                    <div class="scoll-view" style="max-height: {{ $$root.current('height') - 280 }}px">
+                                        <div class="list-group">
+                                            <a ng-repeat="item in $$submenu.items" href="javascript:void(0)" ng-click="item.action()" class="list-group-item list-group-item-action flex-column align-items-start">
+                                                <div ng-if="$$submenu.mode=='notify'" style="width:100%">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h3 class="mb-1" ng-bind="item.value">List group item heading</h3>
+                                                        <small ng-bind="item.date">3 days ago</small>
+                                                    </div>
+                                                    <p class="mb-1" ng-bind-html="item.comment">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                                    <small  ng-bind="item.footer">Donec id elit non mi porta.</small>
+                                                </div>
+                                                <div ng-if="$$submenu.mode!='notify'"  style="width:100%">
+                                                    <i class="{{ item.icon }}"></i>
+                                                    {{ item.value }}
+                                                    <span ng-if="item.notifies>0" class="badge badge-default badge-pill" ng-bind="item.notifies">14</span>
+                                                </div>
+
+
+                                            </a>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="$$submenu.footer" class="closing text-center"><a href="{{$$submenu.footer.link }}" ng-bind="$$submenu.footer.value">See All Recent Reviews <i
+                                            class="fa fa-angle-double-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- container -->
+</div>
+<!-- vd_primary-menu-wrapper -->

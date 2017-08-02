@@ -1,0 +1,119 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 01/02/2017 22:08
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-apartamento:before { content: "\f100"; }
+.flaticon-capas:before { content: "\f101"; }
+.flaticon-cine:before { content: "\f102"; }
+.flaticon-detener:before { content: "\f103"; }
+.flaticon-dibujar:before { content: "\f104"; }
+.flaticon-flecha:before { content: "\f105"; }
+.flaticon-flechas:before { content: "\f106"; }
+.flaticon-gestos:before { content: "\f107"; }
+.flaticon-grafico:before { content: "\f108"; }
+.flaticon-grafico-1:before { content: "\f109"; }
+.flaticon-herramienta:before { content: "\f10a"; }
+.flaticon-interfaz:before { content: "\f10b"; }
+.flaticon-izquierda:before { content: "\f10c"; }
+.flaticon-juego:before { content: "\f10d"; }
+.flaticon-linea:before { content: "\f10e"; }
+.flaticon-mano:before { content: "\f10f"; }
+.flaticon-mano-1:before { content: "\f110"; }
+.flaticon-mano-2:before { content: "\f111"; }
+.flaticon-mano-3:before { content: "\f112"; }
+.flaticon-negocios:before { content: "\f113"; }
+.flaticon-negocios-1:before { content: "\f114"; }
+.flaticon-negocios-2:before { content: "\f115"; }
+.flaticon-negocios-3:before { content: "\f116"; }
+.flaticon-negocios-4:before { content: "\f117"; }
+.flaticon-negro:before { content: "\f118"; }
+.flaticon-ordenador:before { content: "\f119"; }
+.flaticon-otro:before { content: "\f11a"; }
+.flaticon-paz:before { content: "\f11b"; }
+.flaticon-personas:before { content: "\f11c"; }
+.flaticon-personas-1:before { content: "\f11d"; }
+.flaticon-personas-2:before { content: "\f11e"; }
+.flaticon-redes:before { content: "\f11f"; }
+.flaticon-seguridad:before { content: "\f120"; }
+.flaticon-signos:before { content: "\f121"; }
+.flaticon-social:before { content: "\f122"; }
+.flaticon-social-1:before { content: "\f123"; }
+.flaticon-telefono-celular:before { content: "\f124"; }
+.flaticon-tiempo:before { content: "\f125"; }
+.flaticon-transporte:before { content: "\f126"; }
+.flaticon-viajar:before { content: "\f127"; }
+    
+    $font-Flaticon-apartamento: "\f100";
+    $font-Flaticon-capas: "\f101";
+    $font-Flaticon-cine: "\f102";
+    $font-Flaticon-detener: "\f103";
+    $font-Flaticon-dibujar: "\f104";
+    $font-Flaticon-flecha: "\f105";
+    $font-Flaticon-flechas: "\f106";
+    $font-Flaticon-gestos: "\f107";
+    $font-Flaticon-grafico: "\f108";
+    $font-Flaticon-grafico-1: "\f109";
+    $font-Flaticon-herramienta: "\f10a";
+    $font-Flaticon-interfaz: "\f10b";
+    $font-Flaticon-izquierda: "\f10c";
+    $font-Flaticon-juego: "\f10d";
+    $font-Flaticon-linea: "\f10e";
+    $font-Flaticon-mano: "\f10f";
+    $font-Flaticon-mano-1: "\f110";
+    $font-Flaticon-mano-2: "\f111";
+    $font-Flaticon-mano-3: "\f112";
+    $font-Flaticon-negocios: "\f113";
+    $font-Flaticon-negocios-1: "\f114";
+    $font-Flaticon-negocios-2: "\f115";
+    $font-Flaticon-negocios-3: "\f116";
+    $font-Flaticon-negocios-4: "\f117";
+    $font-Flaticon-negro: "\f118";
+    $font-Flaticon-ordenador: "\f119";
+    $font-Flaticon-otro: "\f11a";
+    $font-Flaticon-paz: "\f11b";
+    $font-Flaticon-personas: "\f11c";
+    $font-Flaticon-personas-1: "\f11d";
+    $font-Flaticon-personas-2: "\f11e";
+    $font-Flaticon-redes: "\f11f";
+    $font-Flaticon-seguridad: "\f120";
+    $font-Flaticon-signos: "\f121";
+    $font-Flaticon-social: "\f122";
+    $font-Flaticon-social-1: "\f123";
+    $font-Flaticon-telefono-celular: "\f124";
+    $font-Flaticon-tiempo: "\f125";
+    $font-Flaticon-transporte: "\f126";
+    $font-Flaticon-viajar: "\f127";

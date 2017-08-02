@@ -1,0 +1,58 @@
+<div class="navbar-menu clearfix">
+
+    <h3 class="menu-title hide-nav-medium hide-nav-small">Menu</h3>
+    <div class="vd_menu">
+        <ul>
+            <li ng-repeat="(i , menu) in $$menu.data.menu">
+                <a ng-if="menu.action!=undefined" href="javascript:void(0)" ng-click="menu.action()" class="{{ menu.sub!=undefined && menu.sub.length>0 ? 'menu-left':''}}">
+                    <span class="menu-icon"><i ng-class="menu.icon"></i></span>
+                    <span class="menu-text" ng-bind="menu.label">Dashboard</span>
+                    </span>
+                    <span class="menu-badge" ng-if="$$notify.get(menu.controller).length>0"><span class="badge vd_bg-red" ng-bind="$$notify[menu.controller].length">78</span></span>
+                </a>
+                <a ng-if="menu.action==undefined" href="{{ menu.link }}" class="{{ menu.sub!=undefined && menu.sub.length>0 ? 'menu-left':''}}">
+                    <span class="menu-icon"><i ng-class="menu.icon"></i></span>
+                    <span class="menu-text" ng-bind="menu.label">Dashboard</span>
+                    </span>
+                    <span class="menu-badge" ng-if="$$notify.get(menu.controller).length>0"><span class="badge vd_bg-red" ng-bind="$$notify[menu.controller].length">78</span></span>
+                </a>
+                <span class="menu-collapse" ng-click="$$menu.select(i)" ng-if="menu.sub!=undefined && menu.sub.length>0">
+                                    <span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span>
+                </span>
+                <div id="menu-{{i}}" class="child-menu open" ng-if="menu.sub!=undefined && menu.sub.length>0" style="{{ $$menu.select()==i ? 'height:'+$$menu.data.menuheigth+'px':'' }}">
+                    <ul>
+                        <li ng-repeat="sub in menu.sub">
+                            <a ng-if="sub.action!=undefined" href="javascript:void(0)" ng-click="sub.action()">
+                                <span class="menu-icon"><i ng-class="sub.icon!=undefined ? sub.icon: menu.icon"></i></span>
+                                <span class="menu-text" ng-bind="sub.label">Default Dashboard</span>
+                            </a>
+                            <a ng-if="sub.action==undefined " href="{{sub.link}}">
+                                <span class="menu-icon"><i ng-class="sub.icon!=undefined ? sub.icon: menu.icon"></i></span>
+                                <span class="menu-text" ng-bind="sub.label">Default Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+        <!-- Head menu search form ends -->
+    </div>
+</div>
+<div class="navbar-spacing clearfix">
+</div>
+<div class="vd_menu vd_navbar-bottom-widget">
+    <ul>
+        <li>
+            <a href="../pages-logout.html">
+                <span class="menu-icon"><i class="fa fa-sign-out"></i></span>
+                <span class="menu-text">Logout</span>
+            </a>
+
+        </li>
+    </ul>
+</div>
+
+<script>
+
+</script>

@@ -1,0 +1,23 @@
+
+.owl-wrapper{
+    transition: all 500ms ease;
+    -webkit-animation: mymove 24s infinite; /* Safari 4.0 - 8.0 */
+    animation: mymove 24s infinite;
+}
+@-webkit-keyframes mymove {
+    0% {transform: translate3d(0px, 0px, 0px);}
+    20% {transform: translate3d(-243px, 0px, 0px);}
+    40% {transform: translate3d(-486px, 0px, 0px);}
+    60% {transform: translate3d(-729px, 0px, 0px);}
+    80% {transform: translate3d(-972px, 0px, 0px);}
+    100% {transform: translate3d(0px, 0px, 0px);}
+}
+
+@keyframes mymove {
+    0% {transform: translate3d(0px, 0px, 0px);}
+    20% {transform: translate3d(-243px, 0px, 0px);}
+    40% {transform: translate3d(-486px, 0px, 0px);}
+    60% {transform: translate3d(-729px, 0px, 0px);}
+    80% {transform: translate3d(-972px, 0px, 0px);}
+    100% {transform: translate3d(0px, 0px, 0px);}
+}
