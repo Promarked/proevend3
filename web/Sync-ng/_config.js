@@ -60,12 +60,11 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
 
     $rootScope.$$modal={
         show:function () {
-            $("#myModal").modal("show");
-            $("body").addClass("modal-open");
+            $("#modal_button").click();
+
         },
         hide:function () {
-            $("#myModal").modal("hide");
-            $("body").removeClass("modal-open");
+            $("#modal_button").click();
         },
         is:function () {
             return $("body").hasClass("modal-open");
@@ -226,10 +225,24 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
                 $rootScope.$$modal.show();
             }},
             {value:"Cuentas", icon:"fa fa-user-circle-o", action:function () {
-                $rootScope.$$modal.show();
+                var notify = $.notify('<strong>Saving</strong> Do not close this page...', {
+                    allow_dismiss: false,
+                    showProgressbar: true
+                });
+
+                setTimeout(function() {
+                    notify.update({'type': 'success', 'message': '<strong>Success</strong> Your page has been saved!', 'progress': 25});
+                }, 4500);
             }},
             {value:"Perfil", icon:"fa fa-user", action:function () {
-                console.log("-->Perfil");
+                var notify = $.notify('<strong>Saving</strong> Do not close this page...', {
+                    allow_dismiss: false,
+                    showProgressbar: true
+                });
+
+                setTimeout(function() {
+                    notify.update({'type': 'success', 'message': '<strong>Success</strong> Your page has been saved!', 'progress': 25});
+                }, 4500);
             }},
             {value:"Cambiar contraseña", icon:"fa fa-key", action:function () {
                 $rootScope.$$modal.show();
