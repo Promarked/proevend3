@@ -43,6 +43,11 @@
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
+<<<<<<< HEAD
+=======
+Proevend/
+Proevend3/
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
 .idea/workspace.xml
 .idea/workspace.xml
 .idea/workspace.xml

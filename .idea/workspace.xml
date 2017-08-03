@@ -31,8 +31,28 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="120">
               <caret line="199" column="77" selection-start-line="199" selection-start-column="77" selection-end-line="199" selection-end-column="77" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="459">
+              <caret line="199" column="15" selection-start-line="199" selection-start-column="15" selection-end-line="199" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prettify.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/plugins/google-code-prettify/prettify.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+=======
+            <state relative-caret-position="115">
+              <caret line="184" column="69" selection-start-line="184" selection-start-column="69" selection-end-line="184" selection-end-column="69" />
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
               <folding />
             </state>
           </provider>
@@ -142,8 +162,17 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
+<<<<<<< HEAD
+=======
+    <option name="y" value="-8" />
+<<<<<<< HEAD
+    <option name="width" value="1296" />
+    <option name="height" value="1000" />
+=======
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
     <option name="width" value="1378" />
     <option name="height" value="744" />
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -170,6 +199,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -314,21 +344,48 @@
       <workItem from="1501013840724" duration="9044000" />
       <workItem from="1501301561741" duration="1090000" />
       <workItem from="1501429692508" duration="23946000" />
+<<<<<<< HEAD
+      <workItem from="1501677684941" duration="639000" />
+=======
       <workItem from="1501677684941" duration="13000" />
+<<<<<<< HEAD
       <workItem from="1501682672892" duration="4295000" />
       <workItem from="1501766313286" duration="17163000" />
+=======
+      <workItem from="1501682672892" duration="3696000" />
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="55551000" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="34719000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20469256" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+    <option name="totallyTimeSpent" value="37789000" />
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1378" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2670713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -542,8 +599,23 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="199" column="15" selection-start-line="199" selection-start-column="15" selection-end-line="199" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+=======
     <entry file="file://E:/Usuarios/Estandar/Documents/themeforest-7717536-super-flexible-multipurpose-admin-template/extra/vendroid_html/ui-panels.html" />
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/web/js/jquery.js">
+=======
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
+    <entry file="file://$PROJECT_DIR$/web/Sync-ng/_init.js">
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -581,15 +653,32 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/web/Sync-ng/_init.js">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/plugins/google-code-prettify/prettify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+=======
+    <entry file="file://$PROJECT_DIR$/web/includes/modal-view.htm">
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/web/Sync-ng/_config.js">
+=======
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/web/app/index.html">
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="294" column="69" selection-start-line="294" selection-start-column="69" selection-end-line="294" selection-end-column="69" />
@@ -609,6 +698,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/web/custom/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
@@ -617,5 +707,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 16e0377d30453f15110c446580bf98cad5aa038e
+>>>>>>> 45c65e3701b062e05ffe41ad54f2f404ce5d7cfd
   </component>
 </project>
