@@ -54,17 +54,42 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
     $rootScope.$page=function (data) {
         $rootScope.page=data;
     }
+
+    $rootScope.$$form={
+        data:{},
+        $control:function (control) {
+            if(control.value!="" && control.value != undefined){
+                control.labelClass="noempty"
+            }
+            if(typeof control.required == 'function'){
+                control.valid=control.required(control.value);
+            }else if(control.required !=undefined){
+                control.valid=control.required.test(control.value);
+            }else{
+                control.valid=true;
+            }
+        },
+        add:function (name,controls, title, submit="Aceptar", cancel="Cancelar") {
+            this.data[name]={
+                name:name, controls:controls, title:title, submit:submit, cancel:cancel
+            }
+        },
+        get:function (name) {
+            return this.data[name];
+        }
+
+    }
     $(".content").click(function () {
         $rootScope.$$root.hideNofifymenu();
     });
 
     $rootScope.$$modal={
         show:function () {
-            $("#modal_button").click();
+            if(!this.is()) $("#modal_button").click();
 
         },
         hide:function () {
-            $("#modal_button").click();
+            if(this.is()) $("#modal_button").click();
         },
         is:function () {
             return $("body").hasClass("modal-open");
@@ -164,10 +189,8 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
             };
         },
         setup:function (name) {
-
             if($rootScope.$$root.isNofifymenu() && name == this.name){
                 $rootScope.$$root.hideNofifymenu();
-
             }else{
                 this.name = name;
                 $(".mega-li.current").removeClass("current");
@@ -176,9 +199,7 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
                 this.title = this.configs[name].title;
                 this.mode = this.configs[name].mode;
                 $rootScope.$$wait( function(){ $rootScope.$$root.showNofifymenu();}, 0.05);
-
             }
-
         },
         title:"",mode:"",
         items:[
@@ -257,64 +278,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         [
             {value:"Manuel De Orta", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", date:"20 de junio", action:function () {
                 console.log("-->Configuracion de usuario");
-            }},
-            {value:"Nuris Garcia", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Javier Dean", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Nacer Martinez", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Lourdes Deam", comment:"Ha sido invitada por Promarked al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Manuel De Orta", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Nuris Garcia", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Javier Dean", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Nacer Martinez", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Lourdes Deam", comment:"Ha sido invitada por Promarked al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Manuel De Orta", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Nuris Garcia", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Javier Dean", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", date:"20 de junio", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Nacer Martinez", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Lourdes Deam", comment:"Ha sido invitada por Promarked al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Manuel De Orta", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Nuris Garcia", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Javier Dean", comment:"Ha realizado el pago para asistir al 8 Jornadas de Pediatria", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"Nacer Martinez", comment:"Se a unido a al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
-            {value:"Lourdes Deam", comment:"Ha sido invitada por Promarked al VI Semiario de Prueba", date:"20 de junio", action:function () {
-                console.log("-->Configuracion de usuario");
-            }},
+            }}
         ],"Personas", "notify"
     )
     $rootScope.$$submenu.add(
@@ -322,14 +286,14 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         [
             {value:"Nueva Actualizacion", comment:"Ahora encuentra nuevas caracteristicas que te pueden ayudar a recibir pagos.", date:"20 de junio", action:function () {
                 console.log("-->Configuracion de usuario");
-            }},
-            {value:"Campaña de Email enviada", comment:"Las campañas se ha enviado satisfactoriamente", action:function () {
-                console.log("-->Cuentas");
-            }},
-            {value:"¡Enhorabuena!", comment:"Bienvendo a sistema de gestion Proevend.", action:function () {
-
-            }},
+            }}
         ],"Notificaciones", "notify"
     )
+
+    $rootScope.$$form.add("modal",[
+        {name:"name",label:"Nombres",value:"", type:"input" , col:"2"},
+        {name:"name",label:"Apellidos",value:"", type:"input", col:"2"}
+
+    ],"Agregar persona","Guardar");
 
 });

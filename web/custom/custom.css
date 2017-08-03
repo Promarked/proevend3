@@ -208,6 +208,10 @@ footer .vd_bottom {
     height: 5px;
 }
 
+#modal_button{
+    display: none;
+}
+
 .notify-heading{
 
 }
@@ -230,7 +234,7 @@ footer .vd_bottom {
 .remove-navbar .vd_top-nav .vd_panel-menu .remove-navbar-button, .remove-header .vd_top-nav .vd_panel-menu .remove-header-button, .fullscreen .vd_top-nav .vd_panel-menu .fullscreen-button, .vd_top-nav .vd_panel-menu [data-action^="toggle-navbar-right"], .vd_top-nav .vd_panel-menu [data-action^="toggle-navbar-left"], .nav-left-medium .vd_top-nav .vd_panel-menu [data-action^="nav-left-medium"], .nav-left-small .vd_top-nav .vd_panel-menu [data-action^="nav-left-small"], .nav-right-medium .vd_top-nav .vd_panel-menu [data-action^="nav-right-medium"], .nav-right-small .vd_top-nav .vd_panel-menu [data-action^="nav-right-small"], .submenu .vd_top-nav .vd_panel-menu [data-action^="submenu"] {
     margin-top: 1px;
     color: white;
-    background: gray;
+    background: rgba(100,100,100,0.7);
     /*box-shadow: 0px 0px 3px 3px grey;*/
 }
 [data-action^="submenu"] {
@@ -262,7 +266,7 @@ header .vd_top-menu-wrapper{
     background: transparent;
 }
 .mega-li.current{
-    box-shadow: 0px 6px 6px 1px white, 0px -1px 15px -5px black;
+    box-shadow: 0px 20px 6px -5px white, 0px -1px 15px -5px black;
     background: white;
 }
 
@@ -273,4 +277,49 @@ header .vd_top-menu-wrapper{
     height: 4px;
     width: 20px;
     background: black;
+}
+div.float-label{
+    position: relative;
+    padding: 0px;
+}
+
+label.label-float {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    cursor: text;
+    color:gray;
+    font-size: 13px;
+
+    transition: 0.2s all;
+}
+.input-border-btm{
+    font-family: "Open Sans", arial;
+    font-size: 13px;
+    border-bottom: 2px solid gray;
+    transition: 0.2s;
+}
+ .input-border-btm:focus{
+    background: inherit;
+    background-color: inherit;
+    border-color: #0AA699 !important;
+}
+
+.ng-not-empty + .label-float , .input-border-btm:focus + .label-float{
+    position: absolute;
+    font-size: 11px;
+    color: #0AA699;
+    top: -18px;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 0px;
+}
+
+
+
+input{
+    outline: none;
 }

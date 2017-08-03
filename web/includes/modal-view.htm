@@ -1,166 +1,26 @@
 <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header vd_bg-blue vd_white">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <div class="modal-header vd_bg-white vd_black">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i>
+            </button>
+            <h4 class="modal-title" id="myModalLabel" ng-bind="$$form.get('modal').title">Modal title</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
+            <form class="form-horizontal ">
+                <div ng-repeat="control in $$form.get('modal').controls" class="form-group" style="{{ control.col !=undefined ?'width:'+(100/control.col)+'%; float:left':''}}" >
+                    <div class=" col-sm-12 controls float-label" ng-if="control.type=='input'">
+                        <input name="{{control.name}}" type="text" ng-model="control.value" class="input-border-btm {{ control.class }}"
+                               ng-keydown="$$form.$control(control)"/>
+                        <label for="{{control.name}}" onclick="$(this).prev( 'input' ).focus()" class="control-label label-float {{ control.labelclass }}" ng-bind="control.label">Nombre</label>
+                        <label class="help-inline" ng-bind="control.message">Some hint here</label>
                     </div>
-
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div><div class="form-group">
-                <label class="col-sm-4 control-label">First Name</label>
-                <div class="col-sm-7 controls">
-                    <input class="input-border-btm" type="text">
-                </div>
-
-            </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">User Name</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="text">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7 controls">
-                        <input class="input-border-btm" type="password">
-                    </div>
-
-                </div>
-
-
-
             </form>
 
         </div>
         <div class="modal-footer background-login">
-            <button type="button" class="btn vd_btn vd_bg-grey" data-dismiss="modal">Close</button>
-            <button type="button" class="btn vd_btn vd_bg-green">Save changes</button>
+            <button type="button" class="btn vd_btn vd_bg-grey" data-dismiss="modal" ng-bind="$$form.get('modal').cancel">Cancelar</button>
+            <button type="button" class="btn vd_btn vd_bg-green" ng-bind="$$form.get('modal').submit">Aceptar</button>
         </div>
     </div>
     <!-- /.modal-content -->
