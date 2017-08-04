@@ -291,9 +291,14 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
     )
 
     $rootScope.$$form.add("modal",[
-        {name:"name",label:"Nombres",value:"", type:"input" , col:"2"},
-        {name:"name",label:"Apellidos",value:"", type:"input", col:"2"}
-
+        {name:"firthname",label:"Nombres",value:"Manuel", type:"input" , col:"2"},
+        {name:"lastname",label:"Apellidos",value:"De Orta", type:"input", col:"2"},
+        {name:"comments",label:"Reseña",value:"", type:"textarea"},
+        {name:"pay",label:"Pago",value:"Efecty", type:"select", options:[
+            "Consignacion",
+            "Efectivo en el evento",
+            {value:"inv", label:"Invitacion"}
+        ]}
     ],"Agregar persona","Guardar");
 
 });

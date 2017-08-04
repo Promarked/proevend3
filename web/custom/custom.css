@@ -286,17 +286,16 @@ div.float-label{
 label.label-float {
     position: absolute;
     top: 2px;
-    left: 10px;
+    left: 5px;
     cursor: text;
-    color:gray;
+    color:lightgrey;
     font-size: 13px;
-
     transition: 0.2s all;
 }
 .input-border-btm{
     font-family: "Open Sans", arial;
     font-size: 13px;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid lightgrey !important;
     transition: 0.2s;
 }
  .input-border-btm:focus{
@@ -307,7 +306,7 @@ label.label-float {
 
 .ng-not-empty + .label-float , .input-border-btm:focus + .label-float{
     position: absolute;
-    font-size: 11px;
+    font-size: 12px;
     color: #0AA699;
     top: -18px;
 }
@@ -318,8 +317,10 @@ label.label-float {
     padding: 0px;
 }
 
+.btn {
+    font-size: 12px;
+}
 
-
-input{
+input, textarea, select{
     outline: none;
 }
