@@ -86,7 +86,6 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
     $rootScope.$$modal={
         show:function () {
             if(!this.is()) $("#modal_button").click();
-
         },
         hide:function () {
             if(this.is()) $("#modal_button").click();
@@ -202,9 +201,7 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
             }
         },
         title:"",mode:"",
-        items:[
-
-        ]
+        items:[]
     }
 
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
@@ -218,6 +215,9 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
             {
                 label:"Personas", controller:"peaple", link:"#!/peaple" , icon:"fa fa-users",
                 sub:[
+                    {label: "Preinscritos", controller:"peaple", action:function () {
+                        $rootScope.$$modal.show();
+                    }, icon:"fa fa-user-plus"},
                     {label: "Preinscritos", controller:"peaple", link:"#!/peaple/pre", icon:"fa fa-user-o"},
                     {label: "Inscritos", controller:"peaple", link:"#!/peaple/pre", icon:"fa fa-user"}
                 ]
@@ -291,14 +291,18 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
     )
 
     $rootScope.$$form.add("modal",[
-        {name:"firthname",label:"Nombres",value:"Manuel", type:"input" , col:"2"},
-        {name:"lastname",label:"Apellidos",value:"De Orta", type:"input", col:"2"},
-        {name:"comments",label:"Reseña",value:"", type:"textarea"},
         {name:"pay",label:"Pago",value:"Efecty", type:"select", options:[
             "Consignacion",
             "Efectivo en el evento",
             {value:"inv", label:"Invitacion"}
-        ]}
+        ]},
+        {name:"firthname",label:"Nombres",value:"Manuel", type:"input" , col:"2"},
+        {name:"lastname",label:"Apellidos",value:"De Orta", type:"input", col:"2"},
+        {name:"comments",label:"Reseña",value:"", type:"textarea"},
+        {type:"date-range", start:"start", end:"end"},
+        {name:"start",label:"Inicia",value:"", type:"date"},
+        {name:"end",label:"Finaliza ",value:"", type:"date"},
+        {name:"fecha",label:"Fecha",value:"", type:"date"},
     ],"Agregar persona","Guardar");
 
 });
