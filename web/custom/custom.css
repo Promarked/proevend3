@@ -306,10 +306,17 @@ label.label-float {
 }
 
 .ng-not-empty + .label-float , .input-border-btm:focus + .label-float{
-    position: absolute;
-    font-size: 12px;
-    color: #0AA699;
-    top: -18px;
+     position: absolute;
+     font-size: 12px;
+     color: #0AA699;
+     top: -18px;
+ }
+
+input.ng-not-empty:focus ~  .dropdown-menu {
+    display: inherit;
+    /* height: 200px; */
+    width: 100%;
+    margin-top: -25px;
 }
 
 .form-horizontal .form-group {

@@ -48,6 +48,9 @@ ngapp.config(function ($routeProvider, $httpProvider, $provide, $interpolateProv
 });
 
 ngapp.run(function ($routeParams, $rootScope, $http) {
+
+
+
     $rootScope.$$wait = function( callback, seconds){
         return window.setTimeout( callback, seconds * 1000 );
     };
@@ -58,6 +61,20 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
     $rootScope.$$form={
         data:{},
         $control:function (control) {
+            if(control.type=="autocomplete"){
+                var value = control.value;
+                var results = [];
+                var regExp = new RegExp(value);
+                for(var i =0; i<control.options.length; i++){
+                    var object = control.options[i];
+                    if(regExp.test(object)) results.push($f.string.chaset.encode(object));
+
+                }
+                control.results = results;
+
+                $rootScope.$digest();
+
+            }
             if(control.value!="" && control.value != undefined){
                 control.labelClass="noempty"
             }
@@ -82,6 +99,7 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
     $(".content").click(function () {
         $rootScope.$$root.hideNofifymenu();
     });
+    $rootScope.$f= $f;
 
     $rootScope.$$modal={
         show:function () {
@@ -302,7 +320,9 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {type:"date-range", start:"start", end:"end"},
         {name:"start",label:"Inicia",value:"", type:"date"},
         {name:"end",label:"Finaliza ",value:"", type:"date"},
-        {name:"lotation",label:"Localizacion",value:"", message:"Pais, Provincia, Ciudad", type:"autocomplete"},
+        {name:"lotation",label:"Localizacion",value:"", message:"Pais, Provincia, Ciudad", type:"autocomplete",
+            options:$$data.cities
+        },
     ],"Agregar persona","Guardar");
 
 });

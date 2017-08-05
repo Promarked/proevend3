@@ -117,10 +117,9 @@
                                    class="control-label label-float {{ control.labelclass }}" ng-bind="control.label">Nombre</label>
                             <label class="help-inline" ng-bind="control.message">Some hint here</label>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#" ng-repeat="result in control.results" ng-bind-html="result">Action</a>
                             </div>
+
                         </div>
                     </div>
 
