@@ -302,7 +302,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {type:"date-range", start:"start", end:"end"},
         {name:"start",label:"Inicia",value:"", type:"date"},
         {name:"end",label:"Finaliza ",value:"", type:"date"},
-        {name:"fecha",label:"Fecha",value:"", type:"date"},
+        {name:"lotation",label:"Localizacion",value:"", message:"Pais, Provincia, Ciudad", type:"autocomplete"},
     ],"Agregar persona","Guardar");
 
 });
