@@ -142,7 +142,8 @@
 
 
     <!-- Sync NG Scripts -->
-    <script src="../Sync-ng/_defaultdata.js"></script>
+    <script src="../Sync-ng/_data.js"></script>
+    <script src="../Sync-ng/_functions.js"></script>
     <script src="../Sync-ng/_init.js"></script>
     <script src="../Sync-ng/_config.js"></script>
     <script src="../Sync-ng/_controllers.js"></script>
@@ -184,7 +185,8 @@
             </div>
             <!-- Middle Content Start -->
 
-            <div class="vd_content-wrapper" ng-include="'../includes/content-view.htm'">
+            <div class="vd_content-wrapper" ng-init="$$page.include.database='../includes/datatable-view.htm'; $$datatable.datatable='persons'"
+                 ng-include="'../includes/content-view.htm'">
 
             </div>
             <!-- .vd_content-wrapper -->
@@ -206,7 +208,7 @@
 </div>
 
 <!-- .vd_body END  -->
-<a id="back-top" href="../#" data-action="backtop" class="vd_back-top visible"> <i class="fa  fa-angle-up"> </i> </a>
+<!--<a id="back-top" href="../#" data-action="backtop" class="vd_back-top visible"> <i class="fa  fa-angle-up"> </i> </a>
 <!--
 <a class="back-top" href="../#" id="back-top"> <i class="icon-chevron-up icon-white"> </i> </a> -->
 

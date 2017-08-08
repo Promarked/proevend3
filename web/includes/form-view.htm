@@ -1,0 +1,161 @@
+<form class="form-horizontal ">
+    <div ng-repeat="control in $$form.get($$form.form).controls"
+         style="width: {{ control.col !=undefined ? (100/control.col):'100'}}% ; float:left">
+        <div class="form-group" ng-if="control.type=='input'">
+            <div class=" col-sm-12 controls float-label {{ control.class }}">
+                <input type="text" ng-model="control.value" class="input-border-btm {{ control.class }}"
+                       ng-blur="$$form.$control(control, control.value, 'blur')"
+                       ng-click="$$form.$control(control, control.value, 'click')"
+                       ng-init="$$form.$control(control, control.value, 'init')"
+                       ng-keyup="$$form.$control(control, control.value, 'keydown')"/>
+                <label onclick="$(this).prev( 'input' ).focus()"
+                       class="control-label label-float {{ control.labelclass }}" >{{ control.label}} <span ng-if="control.required" >*</span></label>
+                <label class="help-inline" ng-bind="control.message">Some hint here</label>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="control.type=='textarea'"
+             style="width: {{ control.col !=undefined ? (100/control.col):'100'}}% ; float:left">
+            <div class="col-sm-12 controls float-label {{ control.class }}">
+                            <textarea ng-model="control.value" class="input-border-btm autosize {{ control.class }}"
+                                      ng-blur="$$form.$control(control, control.value, 'blur')"
+                                      ng-click="$$form.$control(control, control.value, 'click')"
+                                      ng-init="$$form.$control(control, control.value, 'init')"
+                                      ng-keyup="$$form.$control(control, control.value, 'keydown')"></textarea>
+                <label onclick="$(this).prev( 'textarea' ).focus()"
+                       class="control-label label-float {{ control.labelclass }}" >{{ control.label}} <span ng-if="control.required" >*</span></label>
+                <label class="help-inline" ng-bind="control.message">Some hint here</label>
+                <script>
+                    autosize($('textarea.autosize'));
+                </script>
+            </div>
+        </div>
+
+
+
+        <div class="form-group" ng-if="control.type=='date-range' "
+             style="width: {{ control.col !=undefined ? (100/control.col):'100'}}% ; float:left">
+            <div class="col-sm-12 controls float-label date-range input-daterange">
+                <div style="width: 50%; float: left; position: relative"
+                     ng-repeat="startcontrol in $$form.get('modal').controls"
+                     ng-if="startcontrol.name == control.start && startcontrol.type == 'date'"
+                     class="{{ startcontrol.class }}"
+                >
+                    <input type="text" ng-model="startcontrol.value"
+                           class="input-border-btm {{ startcontrol.class }}"
+                           ng-blur="$$form.$control(startcontrol, startcontrol.value, 'blur')"
+                           ng-click="$$form.$control(startcontrol, startcontrol.value, 'click')"
+                           ng-init="$$form.$control(startcontrol, startcontrol.value, 'init'); startcontrol.showable=false"
+                           ng-keyup="$$form.$control(startcontrol, startcontrol.value, 'keydown')"
+                           ng-change="$$form.$control(startcontrol, startcontrol.value, 'change')"
+                    />
+                    <label onclick="$(this).prev( 'input' ).focus()"
+                           class="control-label label-float {{ startcontrol.labelclass }}"
+                    >
+                        {{ startcontrol.label}} <span ng-if="startcontrol.required" >*</span>
+                    </label>
+                    <label class="help-inline" ng-bind="startcontrol.message">Some hint here</label>
+                </div>
+                <div style="width: 50%; float: left; position: relative"
+                     ng-repeat="endcontrol in $$form.get('modal').controls"
+                     ng-if="endcontrol.name == control.end && endcontrol.type == 'date'"
+                     class="{{ endcontrol.class }}">
+                    <input type="text" ng-model="endcontrol.value"
+                           class="input-border-btm {{ endcontrol.class }}"
+                           ng-blur="$$form.$control(endcontrol, endcontrol.value, 'blur')"
+                           ng-click="$$form.$control(endcontrol, endcontrol.value, 'click')"
+                           ng-init="$$form.$control(endcontrol, endcontrol.value, 'init'); endcontrol.showable=false"
+                           ng-keyup="$$form.$control(endcontrol, endcontrol.value, 'keydown')"
+                           ng-change="$$form.$control(endcontrol, endcontrol.value, 'change')"
+
+                    >
+                    <label onclick="$(this).prev( 'input' ).focus()"
+                           class="control-label label-float {{ endcontrol.labelclass }}"
+                    >
+                        {{ endcontrol.label}} <span ng-if="endcontrol.required" >*</span>
+                    </label>
+                    <label class="help-inline" ng-bind="endcontrol.message">Some hint here</label>
+                </div>
+            </div>
+            <script>
+                window.setTimeout(function () {
+                    $("div.input-daterange").datepicker({
+                        format: 'yyyy-mm-dd',
+                        startDate: '+1d',
+                        language: "es"
+                    });
+                }, 100);
+
+            </script>
+        </div>
+        <div class="form-group"  ng-if="control.type=='date' && (control.showable || control.showable==undefined)"
+             style="width: {{ control.col !=undefined ? (100/control.col):'100'}}% ; float:left">
+            <div class=" col-sm-12 controls float-label {{ control.class }}">
+                <input type="text" ng-model="control.value" class="input-border-btm datepicker {{ control.class }}"
+                       ng-blur="$$form.$control(control, control.value, 'blur')"
+                       ng-click="$$form.$control(control, control.value, 'click')"
+                       ng-init="$$form.$control(control, control.value, 'init')"
+                       ng-keyup="$$form.$control(control, control.value, 'keydown')"
+                       ng-change="$$form.$control(control, control.value, 'change')"
+
+                />
+                <label onclick="$(this).prev( 'input' ).focus()" class="control-label label-float {{ control.labelclass }}" >
+                    {{ control.label}} <span ng-if="control.required" >*</span>
+                </label>
+                <label class="help-inline" ng-bind="control.message">Some hint here</label>
+            </div>
+            <script>
+                $('input.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    startDate: '+1d',
+                    language: "es"
+                });
+            </script>
+        </div>
+
+        <div class="form-group" ng-if="control.type=='select'">
+            <div class=" col-sm-12 controls float-label {{ control.class }}">
+                <i class="fa fa-caret-down select-icon-right" onclick="$(this).siblings('input').focus()" aria-hidden="true"></i>
+                <input type="text" ng-model="control.valueLabel"
+                       ng-blur="$$form.$control(control, control.valueLabel, 'blur')"
+                       ng-click="$$form.$control(control, control.valueLabel, 'click')"
+                       ng-init="$$form.$control(control, control.valueLabel, 'init')"
+                       ng-keyup="$$form.$control(control, control.valueLabel, 'keydown')"
+                       class="input-border-btm input-select {{ control.class }}"
+                />
+                <label onclick="$(this).prev( 'input' ).focus()"
+                       class="control-label label-float {{ control.labelclass }}"
+                >
+                    {{ control.label}} <span ng-if="control.required" >*</span>
+                </label>
+                <label class="help-inline" ng-bind="control.message">Some hint here</label>
+                <div class="dropdown-menu scoll-view {{ control.results.length>0? 'showable':'' }}">
+                    <a class="dropdown-item" ng-repeat="result in control.results"
+                       ng-click="$$form.$updateSelect(control, result); ">{{ result.label }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="control.type=='autocomplete'">
+            <div class=" col-sm-12 controls float-label {{ control.class }}">
+                <input type="text" ng-model="control.value" class="input-border-btm {{ control.class }}"
+                       ng-blur="$$form.$control(control, control.value, 'blur')"
+                       ng-click="$$form.$control(control, control.value, 'click')"
+                       ng-init="$$form.$control(control, control.value, 'init')"
+                       ng-keyup="$$form.$control(control, control.value, 'keydown')"/>
+                <label onclick="$(this).prev( 'input' ).focus()"
+                       class="control-label label-float {{ control.labelclass }}">
+                    {{ control.label}} <span ng-if="control.required" >*</span>
+                </label>
+                <label class="help-inline" ng-bind="control.message">Some hint here</label>
+                <div class="dropdown-menu scoll-view {{ control.results.length>0? 'showable':'' }}" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" ng-repeat="result in control.results" ng-click="$$form.$control(control, result)">{{ result }}</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>

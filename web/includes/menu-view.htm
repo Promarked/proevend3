@@ -19,7 +19,7 @@
                 <span class="menu-collapse" ng-click="$$menu.select(i)" ng-if="menu.sub!=undefined && menu.sub.length>0">
                                     <span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span>
                 </span>
-                <div id="menu-{{i}}" class="child-menu open" ng-if="menu.sub!=undefined && menu.sub.length>0" style="{{ $$menu.select()==i ? 'height:'+$$menu.data.menuheigth+'px':'' }}">
+                <div id="menu-{{i}}" class="child-menu open closed" ng-if="menu.sub!=undefined && menu.sub.length>0" style="{{ $$menu.select()==i ? 'height:'+$$menu.data.menuheigth+'px':'' }}">
                     <ul>
                         <li ng-repeat="sub in menu.sub">
                             <a ng-if="sub.action!=undefined" href="javascript:void(0)" ng-click="sub.action()">

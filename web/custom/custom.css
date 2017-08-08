@@ -71,26 +71,27 @@ header.fixed-top ~ .content{
 }
 
 
-.navbar-scroll::-webkit-scrollbar {
-    width: 3px;
+.navbar-scroll::-webkit-scrollbar , #content-table::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
 }
 
-.navbar-scroll::-webkit-scrollbar-track {
-    background: white;
+.navbar-scroll::-webkit-scrollbar-track , #content-table::-webkit-scrollbar-track{
+    background: transparent;
 }
 
-.navbar-scroll::-webkit-scrollbar-thumb {
-    background-color: white;
-    outline: 1px solid white;
-}
-.navbar-scroll::-webkit-scrollbar-thumb {
+.navbar-scroll::-webkit-scrollbar-thumb , #content-table::-webkit-scrollbar-thumb{
     background-color: transparent;
-    outline: 1px solid white;
-    transition: 0.4s background-color   ;
+    outline: 1px solid transparent;
 }
-.navbar-scroll:hover::-webkit-scrollbar-thumb {
+.navbar-scroll::-webkit-scrollbar-thumb, #content-table::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    outline: 1px solid transparent;
+    transition: 0.4s background-color;
+}
+.navbar-scroll:hover::-webkit-scrollbar-thumb, #content-table::-webkit-scrollbar-thumb{
     background-color: darkgrey;
-    outline: 1px solid white;
+    outline: 1px solid transparent;
 }
 
 .scoll-view{
@@ -98,25 +99,26 @@ header.fixed-top ~ .content{
 }
 
 .scoll-view::-webkit-scrollbar {
-    width: 3px;
+    width: 5px;
+    height: 5px;
 }
 
 .scoll-view::-webkit-scrollbar-track {
-    background: white;
+    background: transparent;
 }
 
 .scoll-view::-webkit-scrollbar-thumb {
-    background-color: white;
-    outline: 1px solid white;
+    background-color: transparent;
+    outline: 1px solid transparent;
 }
 .scoll-view::-webkit-scrollbar-thumb {
     background-color: transparent;
-    outline: 1px solid white;
+    outline: 1px solid transparent;
     transition: 0.4s background-color   ;
 }
 .scoll-view:hover::-webkit-scrollbar-thumb {
     background-color: darkgrey;
-    outline: 1px solid white;
+    outline: 1px solid transparent;
 }
 .badge{
     transition: 0.3s all;
@@ -137,7 +139,28 @@ header.fixed-top ~ .content{
 .menu-collapse:hover .badge i {
     color: white !important;
 }
-
+.control-search .menu-icon{
+   float: left;
+    margin-right: -60px;
+}
+.control-search input{
+    margin-left: -15px;
+    padding-left: 40px;
+    margin-top: -5px;
+    background: transparent;
+    border: 0px;
+    width: calc(100% - 60px);
+}
+.control-search button{
+    float: right;
+    background: transparent;
+    border-radius: 3px;
+    border: none;
+    transition: 0.3s all;
+}
+.control-search button:hover{
+    background: lightgrey;
+}
 
 
 a.menu-left{
@@ -153,10 +176,15 @@ a.menu-left{
     background-color: white;
     height: 0px;
     overflow: hidden;
-    transition: height 0.2s ease-out;
+    transition: height 0.2s ease-out, background 0.5s ease-out, box-shadow 0.5s ease-out;
 }
 .vd_menu ul li .child-menu.ng-scope.open{
     max-height:100% !important;
+}
+.vd_menu ul li .child-menu.ng-scope.open.closed {
+    background: white !important;
+    box-shadow: none !important;
+    /* opacity: 0; */
 }
 .vd_menu ul li .child-menu ul li a{
     padding-left: 30px;
@@ -312,11 +340,19 @@ label.label-float {
      top: -18px;
  }
 
-input.ng-not-empty:focus ~  .dropdown-menu {
+input.ng-not-empty:focus ~ .dropdown-menu.showable ,.dropdown-menu.showable:hover, input.input-select:focus ~ .dropdown-menu.showable {
     display: inherit;
-    /* height: 200px; */
     width: 100%;
     margin-top: -25px;
+    max-height: 350px;
+}
+
+.value-invalid input {
+    border-color: lightcoral !important;
+    color: red;
+}
+.value-invalid label.control-label ,.value-invalid label ,.value-invalid .select-icon-right{
+    color: lightcoral !important;
 }
 
 .form-horizontal .form-group {
@@ -331,11 +367,19 @@ input.ng-not-empty:focus ~  .dropdown-menu {
 
 input, textarea, select{
     outline: none;
+    background: transparent;
+}
+
+i.fa.fa-caret-down.select-icon-right {
+    position: absolute;
+    right: 10px;
+    top: 15px;
 }
 
 .datepicker {
     border-radius: 0px;
 }
+
 
 .input-daterange input {
     text-align: left;
@@ -344,4 +388,10 @@ input, textarea, select{
 
 .dropdown-menu {
     font-size: 12px;
+}
+
+
+#data-table tbody tr:hover{
+    cursor: pointer;
+    background: #DFDFDF;
 }
