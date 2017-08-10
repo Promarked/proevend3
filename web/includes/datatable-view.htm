@@ -18,7 +18,7 @@
         <tbody>
 
 
-        <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)" class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}" ng-click="$$datatable.selected($$datatable.datatable, data)">
+        <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)" class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}" ng-click="$$datatable.selectedUnic($$datatable.datatable, data)">
             <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
             >{{ $$datatable.getValue('persons', column.name, data) }}

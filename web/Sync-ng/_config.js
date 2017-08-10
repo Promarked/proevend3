@@ -390,7 +390,8 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
                 name:name,
                 columns: columns,
                 icon: icon,
-                handles: handles
+                handles: handles,
+                selected:[]
             };
         },
         setDatas:function(datatable,datas){
@@ -408,7 +409,59 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
             }else{
                 return object[name];
             }
+        },
+        isSelected: function (database, object) {
+            for(var i =0; i< this.datatables[database].selected.length; i++){
+                if(this.datatables[database].selected[i]== object.id){
+                    return true;
+                }
+            }
+            return false;
+        },
+        addSelected: function (database, object) {
+            for(var i =0; i< this.datatables[database].selected.length; i++){
+                if(this.datatables[database].selected[i]== object.id){
+                    return false;
+                }
+            }
+            this.datatables[database].selected.push(object.id);
+            return true;
+        },
+        removeSelected: function (database, object) {
+            for(var i =0; i< this.datatables[database].selected.length; i++){
+                if(this.datatables[database].selected[i]== object.id){
+                    this.datatables[database].selected.splice(i, 1);
+                    return true;
+                }
+            }
+
+            return false;
+        },
+        removeSelectedAll: function (database) {
+            this.datatables[database].selected = [];
+        },
+        selected: function (database, object) {
+            if(!this.isSelected(database, object)){
+               this.addSelected(database, object);
+            }else{
+                this.removeSelected(database, object);
+            }
+        },
+        selectedUnic: function (database, object) {
+            if(this.datatables[database].selected.length>1){
+                this.removeSelectedAll(database);
+                this.addSelected(database, object);
+            }else{
+                if(!this.isSelected(database, object)){
+                    this.removeSelectedAll(database);
+                    this.addSelected(database, object);
+                }else{
+                    this.removeSelectedAll(database);
+                }
+            }
+
         }
+
     };
 
     $rootScope.$on("$locationChangeStart", function (event, next, current) {

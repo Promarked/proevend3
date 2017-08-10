@@ -390,8 +390,52 @@ i.fa.fa-caret-down.select-icon-right {
     font-size: 12px;
 }
 
+#data-table tbody tr{
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#data-table thead.theadclone{
+    box-shadow: 0px 2px 40px -10px black;
+    boder-color:lightcoral;
+}
+#data-table thead *{
+    box-shadow: 0px 2px 15px -7px black;
+    boder-color:lightcoral;
+}
+
+#data-table{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 #data-table tbody tr:hover{
     cursor: pointer;
-    background: #DFDFDF;
+    background: rgba(0,0,0,0.1);
+}
+
+#data-table tbody tr.selected{
+    cursor: pointer;
+    color: white;
+    background: #0AA699;
+    opacity:0.8;
+
+}
+
+#data-table tbody tr:after {
+    content: "";
+    left: 50%;
+    width: 0px;
+    height: 33px;
+    position: absolute;
+    transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    z-index: -1;
+    background: transparent;
+}
+#data-table tbody tr.selected:after {
+    width: 100%;
+    left: 0%;
+    background: #0AA699;
 }
