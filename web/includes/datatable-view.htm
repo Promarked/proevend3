@@ -1,9 +1,17 @@
+<div id="context-menu-table" class="dropdown-menu">
+    <a class="dropdown-item" ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+       href="#">{{item.label}}</a>
+</div>
+
 <div class="panel-heading vd_grey vd_bg-white control-search">
     <span class="menu-icon"> <i class="fa fa-search"></i> </span>
     <input ng-model="$$datatable.getView($$datatable.datatable).search"
-            type="search"/><button>Buscar</button>
-    <button ng-show="$$datatable.getView($$datatable.datatable).search.length>0" ng-click="$$datatable.getView($$datatable.datatable).search=''"><i class="fa fa-times"></i></button>
+           type="search"/>
+    <button>Buscar</button>
+    <button ng-show="$$datatable.getView($$datatable.datatable).search.length>0"
+            ng-click="$$datatable.getView($$datatable.datatable).search=''"><i class="fa fa-times"></i></button>
 </div>
+
 <div id="content-table" class="panel-body-list  table-responsive">
     <table id="data-table" class="table table-head-fixed">
         <thead style="background: white; overflow: hidden">
@@ -18,7 +26,13 @@
         <tbody>
 
 
-        <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)" class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}" ng-click="$$datatable.selectedUnic($$datatable.datatable, data)">
+        <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)"
+            ng-mouseup="alert()" ;
+            class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
+            ng-click="$$datatable.selectedUnic($$datatable.datatable, data); "
+            ng-dblclick="$$database.getView($database.database).dbclick(data)"
+            oncontextmenu=" clickr(); return false"
+        >
             <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
             >{{ $$datatable.getValue('persons', column.name, data) }}
@@ -32,23 +46,46 @@
         theadClone.addClass("theadclone");
         theadClone.css({"display": "none"});
         $('#data-table').append(theadClone);
+        function clickr(e) {
+            e = e || window.event; // IE-ism
+            $('#context-menu-table').css({"display": "block","position": "fixed", "top": e.pageY, "left": e.pageX});
+
+        }
         $(document).on("scroll resize", function () {
             var i = 1;
             $('#data-table tbody tr:nth-child(1) td').each(function () {
                 $('#data-table thead.theadclone tr th:nth-child(' + i + ')').css({"min-width": $(this)[0].offsetWidth + "px"}).width($(this).width());
                 i++;
             });
+
+            $('#data-table tbody tr').mousedown(function (e) {
+                //1: izquierda, 2: medio/ruleta, 3: derecho
+
+            });
             $('thead.theadclone').scrollLeft($("#content-table").scrollLeft());
 
             if ($(document).scrollTop() + $("header").height() > $('#data-table').offset().top && $(document).scrollTop() + $("header").height() < $('#data-table').offset().top + $('#data-table').width()) {
                 $('thead.theadclone').width($('#content-table').width());
-                $('thead.theadclone').css({"position": "fixed", "top": "63px", "display": "block"});
+                $('thead.theadclone').css({
+                    "position": "fixed",
+                    "top": $("header").height() + "px",
+                    "display": "block"
+                });
                 $("#content-table").scroll(function () {
                     $('thead.theadclone').scrollLeft($(this).scrollLeft());
                 });
             } else {
                 $('thead.theadclone').css({"display": "none"});
                 $('.inter-table').css({"height": 0 + "px"});
+            }
+        });
+
+        $('#data-table tbody tr ').click(function () {
+            if ($(this).hasClass("selected")) {
+                $(this).after().width($(this).width);
+                $(this).after().height($(this).height);
+            } else {
+                $(this).after().width(0);
             }
         });
     </script>
