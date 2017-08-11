@@ -81,6 +81,10 @@ var $f={
     },
 }
 
+
+
+
+
 function appFunctions($routeParams, $rootScope, $http) {
     $(".content").click(function () {$rootScope.$$root.hideNofifymenu();});
     $rootScope.$f = $f;
@@ -429,20 +433,21 @@ function appFunctions($routeParams, $rootScope, $http) {
         configMenu:function (name, context ) {
             this.datatables[name].menu=context;
         },
-        rclick:function (name, $event) {
-            $.notify("Click");
-            if($event.which==2)$.notify("Derecho");
+        runAction:function (name, item) {
+            console.log("Run Action");
+            item.action(this.getSelectedObject(name));
         },
-        on:function (database, funcs) {
-            this.datatables[database].click = funcs.click;
-            this.datatables[database].dbclick = funcs.dbclick;
-            this.datatables[database].rclick = funcs.rclick;
+
+        on:function (name, funcs) {
+            this.datatables[name].click = funcs.click;
+            this.datatables[name].dbclick = funcs.dbclick;
+            this.datatables[name].rclick = funcs.rclick;
         },
-        setDatas:function(datatable,datas){
-            this.datatables[datatable].datas = datas;
+        setDatas:function(name,datas){
+            this.datatables[name].datas = datas;
         },
-        getDatas:function (datatable) {
-            return this.datatables[datatable].datas;
+        getDatas:function (name) {
+            return this.datatables[name].datas;
         },
         getView:function (name) {
             return this.datatables[name];
@@ -454,54 +459,65 @@ function appFunctions($routeParams, $rootScope, $http) {
                 return object[name];
             }
         },
-        isSelected: function (database, object) {
-            for(var i =0; i< this.datatables[database].selected.length; i++){
-                if(this.datatables[database].selected[i]== object.id){
+        isSelected: function (name, object) {
+            for(var i =0; i< this.datatables[name].selected.length; i++){
+                if(this.datatables[name].selected[i]== object.id){
                     return true;
                 }
             }
             return false;
         },
-        addSelected: function (database, object) {
-            for(var i =0; i< this.datatables[database].selected.length; i++){
-                if(this.datatables[database].selected[i]== object.id){
+        addSelected: function (name, object) {
+            for(var i =0; i< this.datatables[name].selected.length; i++){
+                if(this.datatables[name].selected[i]== object.id){
                     return false;
                 }
             }
-            this.datatables[database].selected.push(object.id);
+            this.datatables[name].selected.push(object.id);
             return true;
         },
-        removeSelected: function (database, object) {
-            for(var i =0; i< this.datatables[database].selected.length; i++){
-                if(this.datatables[database].selected[i]== object.id){
-                    this.datatables[database].selected.splice(i, 1);
+        removeSelected: function (name, object) {
+            for(var i =0; i< this.datatables[name].selected.length; i++){
+                if(this.datatables[name].selected[i]== object.id){
+                    this.datatables[name].selected.splice(i, 1);
                     return true;
                 }
             }
 
             return false;
         },
-        removeSelectedAll: function (database) {
-            this.datatables[database].selected = [];
+        removeSelectedAll: function (name) {
+            this.datatables[name].selected = [];
         },
-        selected: function (database, object) {
+        getSelectedObject: function(name){
+            var data = this.getDatas(name);
+            for(var i =0; i< data.length; i++){
+                if(this.datatables[name].selected[0]== data[i].id){
+                    console.log(">Objeto encontrado, Index : "+i);
+                    return data[i];
+                }
+            }
+            console.log(">Objeto no encontrado");
+            return false;
+        },
+        selected: function (name, object) {
             if(this.datatables.click!=undefined) this.datatables.click(object);
-            if(!this.isSelected(database, object)){
-                this.addSelected(database, object);
+            if(!this.isSelected(name, object)){
+                this.addSelected(name, object);
             }else{
-                this.removeSelected(database, object);
+                this.removeSelected(name, object);
             }
         },
-        selectedUnic: function (database, object) {
-            if(this.datatables[database].selected.length>1){
-                this.removeSelectedAll(database);
-                this.addSelected(database, object);
+        selectedUnic: function (name, object) {
+            if(this.datatables[name].selected.length>1){
+                this.removeSelectedAll(name);
+                this.addSelected(name, object);
             }else{
-                if(!this.isSelected(database, object)){
-                    this.removeSelectedAll(database);
-                    this.addSelected(database, object);
+                if(!this.isSelected(name, object)){
+                    this.removeSelectedAll(name);
+                    this.addSelected(name, object);
                 }else{
-                    this.removeSelectedAll(database);
+                    this.removeSelectedAll(name);
                 }
             }
 
@@ -521,4 +537,18 @@ $(function () {
     String.prototype.htmlEncode=function () {
         return $f.string.chaset.encode(this);
     }
+
+    $.wait = function (callback, seconds) {return window.setTimeout(callback, seconds * 1000);};
+
+    $.fn.extend({
+        animateCss: function (animationName) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            this.addClass('animated ' + animationName).one(animationEnd, function () {
+                if (/Out/.test(animationName)) {
+                    $(this).hide();
+                }
+                $(this).removeClass('animated ' + animationName);
+            });
+        }
+    });
 });

@@ -214,10 +214,15 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
     ]);
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Editar", "action":function (obj) {
-            $.notify("Editar a <b>"+obj.firthname+' '+obj.lastname+' </b>');
+            $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
         }},
-        {label:"Copiar nombre", action:function (obj) {
-            $.notify("<b>"+obj.firthname+' '+obj.lastname+' </b> copiado en el portapapeles');
+        {label:"Copiar nombre completo", action:function (obj) {
+            var $temp = $("<input>")
+            $("body").append($temp);
+            $temp.val(obj.firstName+' '+obj.lastName).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> copiado en el portapapeles');
         }}
     ]);
 

@@ -439,3 +439,6 @@ i.fa.fa-caret-down.select-icon-right {
     left: 0%;
     background: #0AA699;
 }
+#context-menu-table{
+    transition: 0.2s all;
+}

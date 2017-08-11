@@ -1,7 +1,4 @@
-<div id="context-menu-table" class="dropdown-menu">
-    <a class="dropdown-item" ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
-       href="#">{{item.label}}</a>
-</div>
+
 
 <div class="panel-heading vd_grey vd_bg-white control-search">
     <span class="menu-icon"> <i class="fa fa-search"></i> </span>
@@ -11,14 +8,18 @@
     <button ng-show="$$datatable.getView($$datatable.datatable).search.length>0"
             ng-click="$$datatable.getView($$datatable.datatable).search=''"><i class="fa fa-times"></i></button>
 </div>
+<div id="context-menu-table" class="dropdown-menu">
+    <a class="dropdown-item" ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+       ng-click="$$datatable.runAction($$datatable.datatable, item)">{{item.label}}</a>
+</div>
 
 <div id="content-table" class="panel-body-list  table-responsive">
+
     <table id="data-table" class="table table-head-fixed">
         <thead style="background: white; overflow: hidden">
         <tr>
             <th><i class="fa fa-user-circle" aria-hidden="true"></i></th>
-            <th ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
-            >
+            <th ng-repeat="column in $$datatable.getView($$datatable.datatable).columns">
                 {{column.label}}
             </th>
         </tr>
@@ -31,7 +32,7 @@
             class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
             ng-click="$$datatable.selectedUnic($$datatable.datatable, data); "
             ng-dblclick="$$database.getView($database.database).dbclick(data)"
-            oncontextmenu=" clickr(); return false"
+            oncontextmenu=" clickr(this); return false "
         >
             <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
@@ -45,10 +46,26 @@
         var theadClone = $('#data-table thead').clone();
         theadClone.addClass("theadclone");
         theadClone.css({"display": "none"});
+        var showable = false;
         $('#data-table').append(theadClone);
-        function clickr(e) {
-            e = e || window.event; // IE-ism
-            $('#context-menu-table').css({"display": "block","position": "fixed", "top": e.pageY, "left": e.pageX});
+        $("*").click(function () {
+            //$('#context-menu-table').animateCss('bounceOut');
+            if (!showable)
+                $.wait(function () {
+                    $('#context-menu-table').hide(400);
+                }, 0.0);
+        });
+        function clickr(tag) {
+            showable = true;
+            if(!$(tag).hasClass("selected"))
+                $(tag).click();
+            var e = window.event;
+            $.wait(function () {
+                $('#context-menu-table').css({"position": "absolute", "top": e.pageY-$(tag).parents(".panel.widget").offset().top, "left": e.pageX-$(tag).parents(".panel.widget").offset().left});
+                $('#context-menu-table').show(400);
+                showable = false;
+            }, 0.1);
+            return false;
 
         }
         $(document).on("scroll resize", function () {
