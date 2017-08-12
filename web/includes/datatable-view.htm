@@ -9,7 +9,7 @@
             ng-click="$$datatable.getView($$datatable.datatable).search=''"><i class="fa fa-times"></i></button>
 </div>
 <div id="context-menu-table" class="dropdown-menu">
-    <a class="dropdown-item" ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+    <a class="dropdown-item" ng-repeat="item in $$datatable.getMenu($$datatable.datatable)"
        ng-click="$$datatable.runAction($$datatable.datatable, item)">{{item.label}}</a>
 </div>
 

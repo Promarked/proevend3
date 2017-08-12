@@ -270,7 +270,6 @@ function appFunctions($routeParams, $rootScope, $http) {
             for (var i = 0 ; i < controls.length; i++){
                 var control = controls[i];
                 if(control.type=="select"){
-                    console.log(">>> Select Encontrado <<");
                     for (var j =0; j < control.options.length ; j++){
                         var option = control.options[j];
                         console.log(">option >"+typeof option);
@@ -433,8 +432,15 @@ function appFunctions($routeParams, $rootScope, $http) {
         configMenu:function (name, context ) {
             this.datatables[name].menu=context;
         },
+        getMenu:function (name) {
+            if(this.datatables[name].beforeMenu!=undefined)
+                return this.datatables[name].beforeMenu(this.getSelectedObject(name));
+            return this.datatables[name].menu;
+        },
+        handleMenu:function (name,beforeMenu) {
+            this.datatables[name].beforeMenu=beforeMenu;
+        },
         runAction:function (name, item) {
-            console.log("Run Action");
             item.action(this.getSelectedObject(name));
         },
 
@@ -493,11 +499,9 @@ function appFunctions($routeParams, $rootScope, $http) {
             var data = this.getDatas(name);
             for(var i =0; i< data.length; i++){
                 if(this.datatables[name].selected[0]== data[i].id){
-                    console.log(">Objeto encontrado, Index : "+i);
                     return data[i];
                 }
             }
-            console.log(">Objeto no encontrado");
             return false;
         },
         selected: function (name, object) {
@@ -520,9 +524,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                     this.removeSelectedAll(name);
                 }
             }
-
         }
-
     };
 }
 

@@ -212,6 +212,29 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {id:9,firstName:"Leticia", lastName:"Cardenas", identification:"56657676", ocupation:"Medico General",date:"08-03-2017", status:"Asistente"},
         {id:11,firstName:"Maria", lastName:"Caraballo", identification:"76986987", ocupation:"Medico General",date:"01-03-2017", status:"Asistente"}
     ]);
+    $rootScope.$$datatable.handleMenu("persons",function (object) {
+        var menu = [
+            {label:"Editar", "action":function (obj) {
+                $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
+            }},
+            {label:"Copiar nombre completo", action:function (obj) {
+                var $temp = $("<input>")
+                $("body").append($temp);
+                $temp.val(obj.firstName+' '+obj.lastName).select();
+                document.execCommand("copy");
+                $temp.remove();
+                $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> copiado en el portapapeles');
+            }}
+        ];
+        if(object.status =="Preinscrito"){
+            object.status ="Inscrito";
+            menu.push({label:"Convertir en asistente", action:function (obj) {
+                $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> se convirtio en inscrito');
+            }});
+        }
+        return menu;
+
+    });
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Editar", "action":function (obj) {
             $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
