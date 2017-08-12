@@ -433,8 +433,7 @@ function appFunctions($routeParams, $rootScope, $http) {
             this.datatables[name].menu=context;
         },
         getMenu:function (name) {
-            if(this.datatables[name].beforeMenu!=undefined)
-                return this.datatables[name].beforeMenu(this.getSelectedObject(name));
+
             return this.datatables[name].menu;
         },
         handleMenu:function (name,beforeMenu) {
@@ -445,6 +444,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         },
 
         on:function (name, funcs) {
+
             this.datatables[name].click = funcs.click;
             this.datatables[name].dbclick = funcs.dbclick;
             this.datatables[name].rclick = funcs.rclick;
@@ -505,14 +505,19 @@ function appFunctions($routeParams, $rootScope, $http) {
             return false;
         },
         selected: function (name, object) {
+            if(this.datatables[name].beforeMenu!=undefined)
+                this.datatables[name].beforeMenu(this.getSelectedObject(name));
             if(this.datatables.click!=undefined) this.datatables.click(object);
             if(!this.isSelected(name, object)){
                 this.addSelected(name, object);
             }else{
                 this.removeSelected(name, object);
             }
+
         },
         selectedUnic: function (name, object) {
+            if(this.datatables[name].beforeMenu!=undefined)
+                this.datatables[name].beforeMenu(this.getSelectedObject(name));
             if(this.datatables[name].selected.length>1){
                 this.removeSelectedAll(name);
                 this.addSelected(name, object);

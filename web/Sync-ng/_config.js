@@ -227,13 +227,14 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             }}
         ];
         if(object.status =="Preinscrito"){
-            object.status ="Inscrito";
+
             menu.push({label:"Convertir en asistente", action:function (obj) {
+                object.status ="Inscrito";
                 $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> se convirtio en inscrito');
             }});
         }
-        return menu;
-
+        $rootScope.$$datatable.configMenu("persons",menu);
+        $scope.$digest();
     });
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Editar", "action":function (obj) {
