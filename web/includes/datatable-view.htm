@@ -28,11 +28,10 @@
 
 
         <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)"
-            ng-mouseup="alert()" ;
             class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
             ng-click="$$datatable.selectedUnic($$datatable.datatable, data); "
             ng-dblclick="$$database.getView($database.database).dbclick(data)"
-            oncontextmenu=" clickr(this); return false "
+            ng-right-click="$$datatable.selectedUnic($$datatable.datatable, data)"
         >
             <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"

@@ -145,7 +145,6 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
                 value: "Manuel De Orta",
                 comment: "Se a unido a al VI Semiario de Prueba",
                 date: "20 de junio",
-                date: "20 de junio",
                 action: function () {
                     console.log("-->Configuracion de usuario");
                 }
@@ -212,7 +211,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {id:9,firstName:"Leticia", lastName:"Cardenas", identification:"56657676", ocupation:"Medico General",date:"08-03-2017", status:"Asistente"},
         {id:11,firstName:"Maria", lastName:"Caraballo", identification:"76986987", ocupation:"Medico General",date:"01-03-2017", status:"Asistente"}
     ]);
-    $rootScope.$$datatable.handleMenu("persons",function (object) {
+    /*$rootScope.$$datatable.handleMenu("persons",function (object) {
         var menu = [
             {label:"Editar", "action":function (obj) {
                 $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
@@ -235,7 +234,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         }
         $rootScope.$$datatable.configMenu("persons",menu);
         $scope.$digest();
-    });
+    });*/
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Editar", "action":function (obj) {
             $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
