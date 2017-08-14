@@ -102,9 +102,6 @@ function appFunctions($routeParams, $rootScope, $http) {
     $rootScope.$$form = {
         data: {},
         $updateSelect: function (control, option) {
-            console.log(">> Update Select v");
-            console.log(control);
-            console.log(option);
             if (control.type == "select") {
                 control.value = option.value;
                 control.valueLabel = option.label;
@@ -272,7 +269,6 @@ function appFunctions($routeParams, $rootScope, $http) {
                 if (control.type == "select") {
                     for (var j = 0; j < control.options.length; j++) {
                         var option = control.options[j];
-                        console.log(">option >" + typeof option);
                         if (typeof option == 'string') {
                             var newOption = {value: option, label: option}
                             controls[i].options[j] = newOption;
@@ -432,31 +428,88 @@ function appFunctions($routeParams, $rootScope, $http) {
         configMenu: function (name, context) {
             this.datatables[name].menu = context;
         },
-        getMenu: function (name) {
+        getMenu: function (name, type) {
+            if(type!=undefined){
+                if(type=='nav-object'){
+                    if(this.getSelectedObjects(name).length>0){
+                        var menutemp = this.datatables[name].menu;
+                        var menu = [];
+                        for(var i =0 ; i < menutemp.length; i++){
+                            if(menutemp[i].nav && this.menuConditional(name,menutemp[i] ) )
+                                menu.push(menutemp[i]);
+                        }
+                        this.datatables[name].menu$temp = menu;
+                        return menu;
+                    }else {
+                        return this.datatables[name].menu$temp;
+                    }
+                }
+
+            }else{
+
+            }
             return this.datatables[name].menu;
         },
         onMenu: function (name, object) {
             if (this.datatables[name].beforeMenu)
                 this.datatables[name].beforeMenu(object);
 
+            var is = false;
+            var objects = this.getSelectedObjects(name);
+            for (var i = 0; i < objects.length && !is; i++)
+                if (objects[i].id == object.id) is = true;
             showable = true;
             var e = window.event;
-            this.datatables[name].selected=[object.id];
-            $.wait(function () {
-                $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX});
-                $('#context-menu-table').show(400);
-                showable = false;
-            }, 0.1);
+            if (!is)
+                this.datatables[name].selected = [object.id];
+
+            $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX, "display":"block"});
+            $('#context-menu-table').show();
+            showable = false;
+
         },
         handleMenu: function (name, beforeMenu) {
             this.datatables[name].beforeMenu = beforeMenu;
         },
+
+
+        getLabelSelected: function (name) {
+            var l = this.getView(name).selected.length;
+
+            if(l==0){
+                return this.datatables[name].labelSelected$temp;
+            }
+            if (l < 2) {
+                var object = this.getSelectedObject(name);
+                if (this.datatables[name].beforeLabelSelect != undefined)
+                    this.datatables[name].labelSelected$temp = this.datatables[name].beforeLabelSelect(object);
+
+                else if (object.name != undefined)
+                    this.datatables[name].labelSelected$temp = object.name;
+                else if (object.firstName != undefined && object.lastName != undefined)
+                    this.datatables[name].labelSelected$temp = object.firstName + " " + object.lastName;
+                else if (object.firstName != undefined)
+                    this.datatables[name].labelSelected$temp = object.firstName;
+                else this.datatables[name].labelSelected$temp =  object[1];
+
+                return this.datatables[name].labelSelected$temp;
+            } else if(l>1){
+                this.datatables[name].labelSelected$temp = l + " Objetos seleccionados";
+                return this.datatables[name].labelSelected$temp;
+            }
+
+        },
         runAction: function (name, item) {
-            item.action(this.getSelectedObject(name));
+            var objects = this.getSelectedObjects(name);
+            var cont;
+            for (var i = 0; i < objects.length; i++) {
+                cont = item.action(objects[i]);
+                if (cont != undefined && !cont)
+                    break;
+            }
         },
 
         on: function (name, funcs) {
-
             this.datatables[name].click = funcs.click;
             this.datatables[name].dbclick = funcs.dbclick;
             this.datatables[name].rclick = funcs.rclick;
@@ -516,9 +569,20 @@ function appFunctions($routeParams, $rootScope, $http) {
             }
             return false;
         },
+        getSelectedObjects: function (name) {
+            var data = this.getDatas(name);
+            var objects = [];
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < this.datatables[name].selected.length; j++)
+                    if (this.datatables[name].selected[j] == data[i].id) {
+                        objects.push(data[i]);
+                    }
+            }
+            return objects;
+        },
         selected: function (name, object) {
-            if (this.datatables[name].beforeMenu != undefined)
-                this.datatables[name].beforeMenu(this.getSelectedObject(name));
+            if (this.datatables[name].beforeMenu)
+                this.datatables[name].beforeMenu(object);
             if (this.datatables.click != undefined) this.datatables.click(object);
             if (!this.isSelected(name, object)) {
                 this.addSelected(name, object);
@@ -530,7 +594,16 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (this.datatables[name].beforeMenu)
                 this.datatables[name].beforeMenu(object);
 
-            this.datatables[name].selected=[object.id];
+            this.datatables[name].selected = [object.id];
+        },
+        menuConditional: function (name, menu) {
+            var objects = this.getSelectedObjects(name);
+            var is = true;
+            if (menu.if != undefined)
+                for (var i = 0; i < objects.length && is; i++) {
+                    is = menu.if(objects[i], objects.length);
+                }
+            return is;
         }
     };
 }

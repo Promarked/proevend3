@@ -211,40 +211,36 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {id:9,firstName:"Leticia", lastName:"Cardenas", identification:"56657676", ocupation:"Medico General",date:"08-03-2017", status:"Asistente"},
         {id:11,firstName:"Maria", lastName:"Caraballo", identification:"76986987", ocupation:"Medico General",date:"01-03-2017", status:"Asistente"}
     ]);
-    $rootScope.$$datatable.handleMenu("persons",function (object) {
-        var menu = [
-            {label:"Editar", icon:"fa fa-pencil-square-o","action":function (obj) {
-                $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
-            }},
-            {label:"Copiar nombre completo", icon:'fa fa-clipboard' ,action:function (obj) {
-                var $temp = $("<input>")
-                $("body").append($temp);
-                $temp.val(obj.firstName+' '+obj.lastName).select();
-                document.execCommand("copy");
-                $temp.remove();
-                $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> copiado en el portapapeles');
-            }}
-        ];
-        if(object.status =="Preinscrito"){
-            menu.push({label:"Convertir en asistente", action:function (obj) {
-                obj.status ="Inscrito";
-                $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> se convirtio en inscrito');
-            }});
-        }
-        $rootScope.$$datatable.configMenu("persons",menu);
-    });
+
     $rootScope.$$datatable.configMenu("persons",[
-        {label:"Editar", "action":function (obj) {
+        {label:"Nuevo", icon:"fa fa-user-plus", nav:true,always:true,"action":function (obj) {
+            $.notify("Nueva Persona");
+            return false;
+        }},
+        {label:"Editar", icon:"fa fa-pencil-square-o", nav:true,if:function (object, count) { return count==1 },"action":function (obj) {
             $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
         }},
-        {label:"Copiar nombre completo", action:function (obj) {
+        {label:"Borrar", icon:"fa fa-trash","action":function (obj) {
+            $.notify("Borrar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
+        }},
+        {label:"Copiar nombre completo",nav:true,if:function (object, count) { return count==1 }, icon:'fa fa-clipboard',
+            action:function (obj) {
             var $temp = $("<input>")
             $("body").append($temp);
             $temp.val(obj.firstName+' '+obj.lastName).select();
             document.execCommand("copy");
             $temp.remove();
             $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> copiado en el portapapeles');
-        }}
+        }},
+        {label:"Inscribir", icon:"fa fa-thumbs-o-up", nav:true, if:function (object, count) { return object.status=='Preinscrito' } ,"action":function (obj) {
+            $.notify("Inscribir a <b>"+obj.firstName+' '+obj.lastName+' </b>');
+            obj.status="Inscrito";
+        }},
+        {label:"Actualizar", icon:"fa fa-refresh", nav:true,always:true,"action":function (obj) {
+            $.notify("Actualizar base de datos");
+            return false;
+        }},
+
     ]);
 
 });

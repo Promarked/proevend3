@@ -167,10 +167,16 @@
 <div id="context-menu-table" class="dropdown-menu">
     <a class="dropdown-item"
        ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+       ng-if="$$datatable.menuConditional($$datatable.datatable, item)"
        ng-click="$$datatable.runAction($$datatable.datatable, item)"><i class="{{item.icon }}"></i>{{item.label}}</a>
 </div>
+
+
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  ng-include="'../includes/modal-view.htm'">
 </div>
+
+
 
 <div class="vd_body">
     <!-- Header Start -->

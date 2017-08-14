@@ -1,5 +1,3 @@
-
-
 <div class="panel-heading vd_grey vd_bg-white control-search">
     <span class="menu-icon"> <i class="fa fa-search"></i> </span>
     <input ng-model="$$datatable.getView($$datatable.datatable).search"
@@ -26,11 +24,13 @@
 
         <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)"
             class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
-            ng-click="$$datatable.selectedUnic($$datatable.datatable, data);"
-            ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"
         >
-            <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
+            <td ng-click="$$datatable.selected($$datatable.datatable, data);"
+                ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"
+            ><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
+                ng-click="$$datatable.selectedUnic($$datatable.datatable, data);"
+                ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"
             >{{ $$datatable.getValue('persons', column.name, data) }}
             </td>
         </tr>
@@ -46,11 +46,12 @@
         $("*").click(function () {
             if (!showable)
                 $.wait(function () {
-                    $('#context-menu-table').hide(200);
+                    $('#context-menu-table').css({"display":"none"});
                 }, 0.0);
         });
 
         $(document).on("scroll resize", function () {
+
             var i = 1;
             $('#data-table tbody tr:nth-child(1) td').each(function () {
                 $('#data-table thead.theadclone tr th:nth-child(' + i + ')').css({"min-width": $(this)[0].offsetWidth + "px"}).width($(this).width());
@@ -75,14 +76,23 @@
     </script>
 </div>
 
+<div class="table-menu-nav  panel widget light-widget {{ $$datatable.getView($$datatable.datatable).selected.length>0? 'hide-menu':'show-menu'  }}">
+    <a ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+       ng-if="item.always==true"
+       ng-click="$$datatable.runAction($$datatable.datatable, item)"
+       class="nav-link active"><i class="{{item.icon }}"></i>{{item.label}}</a>
+</div>
 
-<div id="table-menu-nav" class="panel">
-    <ul class="nav">
-        <li class="nav-item"
-            ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
-            ng-click="$$datatable.runAction($$datatable.datatable, item)">
-            <a class="nav-link active" ><i class="{{item.icon }}"></i>{{item.label}}</a>
-        </li>
-
-    </ul>
+<div class="table-menu-nav panel widget light-widget {{ $$datatable.getView($$datatable.datatable).selected.length>0? 'show-menu':'hide-menu'  }}">
+    <div class="closed-menu">
+        <a  ng-click="$$datatable.getView($$datatable.datatable).selected=[]">
+        <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div class="label-menu">
+        <span>{{ $$datatable.getLabelSelected($$datatable.datatable) }}</span>
+    </div>
+    <a ng-repeat="item in $$datatable.getMenu($$datatable.datatable, 'nav-object')"
+       ng-click="$$datatable.runAction($$datatable.datatable, item)"
+       class="nav-link active"><i class="{{item.icon }}"></i>{{item.label}}</a>
 </div>
