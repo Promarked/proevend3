@@ -3,14 +3,14 @@
  */
 
 
-var $f={
-    defaultValue:function (variable, value) {
-       if(variable==undefined){
-           variable = value;
-       }
-       return variable;
+var $f = {
+    defaultValue: function (variable, value) {
+        if (variable == undefined) {
+            variable = value;
+        }
+        return variable;
     },
-    string:{
+    string: {
         chaset: {
             encode: function (text) {
                 var rp = text;
@@ -32,7 +32,7 @@ var $f={
 
                 return rp;
             },
-            decode:function (text) {
+            decode: function (text) {
                 var rp = String(text);
                 //
                 rp = rp.replace("&aacute;", 'á');
@@ -54,7 +54,7 @@ var $f={
                 return rp;
             }
         },
-        normalize:function (text) {
+        normalize: function (text) {
             var rp = String(text);
             rp = rp.replace("á", 'a');
             rp = rp.replace("é", 'e');
@@ -69,9 +69,9 @@ var $f={
             rp = rp.replace("Ó", 'O');
             rp = rp.replace("Ú", 'U');
             rp = rp.replace("Ü", 'U');
-            return rp ;
+            return rp;
         },
-        hasIgnoreFormat:function (find, text) {
+        hasIgnoreFormat: function (find, text) {
             find = find.toLowerCase();
             text = text.toLowerCase();
             find = this.normalize(find);
@@ -82,19 +82,20 @@ var $f={
 }
 
 
-
-
-
 function appFunctions($routeParams, $rootScope, $http) {
-    $(".content").click(function () {$rootScope.$$root.hideNofifymenu();});
+    $(".content").click(function () {
+        $rootScope.$$root.hideNofifymenu();
+    });
     $rootScope.$f = $f;
-    $rootScope.$$wait = function (callback, seconds) {return window.setTimeout(callback, seconds * 1000);};
+    $rootScope.$$wait = function (callback, seconds) {
+        return window.setTimeout(callback, seconds * 1000);
+    };
 
-    $rootScope.$$page={
-        config:function (data) {
-            if(data.title!=undefined) this.title = data.title;
-            if(data.comment!=undefined) this.comment =data.comment;
-            if(data.tabtitle!=undefined) this.tabtitle =data.tabtitle +' | Proevend'; else if(data.title!=undefined) this.tabtitle =data.title+' | Proevend';
+    $rootScope.$$page = {
+        config: function (data) {
+            if (data.title != undefined) this.title = data.title;
+            if (data.comment != undefined) this.comment = data.comment;
+            if (data.tabtitle != undefined) this.tabtitle = data.tabtitle + ' | Proevend'; else if (data.title != undefined) this.tabtitle = data.title + ' | Proevend';
         }
     }
 
@@ -104,39 +105,39 @@ function appFunctions($routeParams, $rootScope, $http) {
             console.log(">> Update Select v");
             console.log(control);
             console.log(option);
-            if(control.type=="select"){
+            if (control.type == "select") {
                 control.value = option.value;
                 control.valueLabel = option.label;
             }
         },
         $control: function (control, value, action) {
             if (control.type == "date") {
-                control.valid=false;
-                control.class="";
-                if((control.value==undefined || control.value=="")){
-                    if(/blur/.test(action) && control.required){
-                        control.class="value-invalid";
-                    }else{
-                        control.valid=true;
+                control.valid = false;
+                control.class = "";
+                if ((control.value == undefined || control.value == "")) {
+                    if (/blur/.test(action) && control.required) {
+                        control.class = "value-invalid";
+                    } else {
+                        control.valid = true;
                     }
-                }else{
-                    control.valid=true;
+                } else {
+                    control.valid = true;
                 }
             }
 
             if (control.type == "select") {
                 if (value != undefined) control.valueLabel = value;
-                control.valid=false;
-                control.class="";
+                control.valid = false;
+                control.class = "";
                 var isExact = false;
-                if((control.valueLabel==undefined || control.valueLabel=="")){
-                    if(/blur/.test(action) && control.required){
-                        control.class="value-invalid";
-                    }else{
-                        control.valid=true;
+                if ((control.valueLabel == undefined || control.valueLabel == "")) {
+                    if (/blur/.test(action) && control.required) {
+                        control.class = "value-invalid";
+                    } else {
+                        control.valid = true;
                         control.results = control.options;
                     }
-                }else{
+                } else {
                     var find = control.valueLabel.replace("  ", " ").cleanAccents();
                     find = find.replace(/,|\s/, "(.)*");
                     var results = [], isExact = false, regExp = new RegExp(find, 'gi');
@@ -145,102 +146,101 @@ function appFunctions($routeParams, $rootScope, $http) {
                         if (regExp.test(object.label.cleanAccents())) results.push(object);
                         if (control.valueLabel == object.label) {
                             isExact = true;
-                            control.value= object.value;
-                            control.valid=true;
+                            control.value = object.value;
+                            control.valid = true;
                             break;
                         }
                     }
-                    if(!isExact){
-                        if(/blur/.test(action)){
-                            control.class ="value-invalid";
-                        }else{
-                            if(results.length>0){
+                    if (!isExact) {
+                        if (/blur/.test(action)) {
+                            control.class = "value-invalid";
+                        } else {
+                            if (results.length > 0) {
                                 control.results = results;
-                            }else{
-                                control.class ="value-invalid";
+                            } else {
+                                control.class = "value-invalid";
                                 control.results = control.options;
                             }
                         }
-                    }else{
-                        control.valid=true;
+                    } else {
+                        control.valid = true;
                     }
                 }
             }
 
             if (control.type == "autocomplete") {
-                if(value!=undefined) control.value = value;
-                control.class="";
+                if (value != undefined) control.value = value;
+                control.class = "";
                 var value = control.value.replace("  ", " ").cleanAccents();
                 value = control.value.replace(/,|\s/, "(.)*");
-                var results = [], isExact=false;
+                var results = [], isExact = false;
                 var regExp = new RegExp(value, 'gi');
                 for (var i = 0; i < control.options.length; i++) {
                     var object = control.options[i];
                     if (regExp.test(object.cleanAccents())) results.push(object);
 
                     if (control.value == object) {
-                        isExact= true;
+                        isExact = true;
                         results = [];
                         break;
                     }
                 }
                 control.results = results;
 
-                if(control.value!=undefined && control.value!=""){
-                    if(control.strict){
-                        if(isExact){
+                if (control.value != undefined && control.value != "") {
+                    if (control.strict) {
+                        if (isExact) {
                             control.results = [];
-                            control.valid=true;
-                        }else{
-                            if(/blur/.test(action))
-                                control.class="value-invalid";
-                            control.valid=false;
+                            control.valid = true;
+                        } else {
+                            if (/blur/.test(action))
+                                control.class = "value-invalid";
+                            control.valid = false;
                         }
-                    }else{
-                        if(control.pattern!=undefined){
-                            if(control.pattern.test(control.value)){
+                    } else {
+                        if (control.pattern != undefined) {
+                            if (control.pattern.test(control.value)) {
                                 control.results = results;
-                                control.valid=true;
-                            }else{
-                                if(/blur/.test(action)){
-                                    control.class="value-invalid";
+                                control.valid = true;
+                            } else {
+                                if (/blur/.test(action)) {
+                                    control.class = "value-invalid";
                                 }
-                                control.valid=false;
+                                control.valid = false;
                             }
                         }
                     }
-                }else{
-                    if(/blur/.test(action)){
-                        if(control.required){
+                } else {
+                    if (/blur/.test(action)) {
+                        if (control.required) {
                             control.results = control.option;
-                            control.class="value-invalid";
-                            control.valid=false;
-                        }else{
-                            control.valid=true;
+                            control.class = "value-invalid";
+                            control.valid = false;
+                        } else {
+                            control.valid = true;
                         }
                     }
                 }
 
             }
 
-            if (control.type == "input" || control.type == "text"  || control.type == "textarea"  ) {
-                control.valid=false;
-                control.class="";
-                if(control.required){
-                    if(control.pattern)
-                        if(control.pattern.test(control.value)){
-                            control.class="value-invalid";
-                            control.valid=false;
+            if (control.type == "input" || control.type == "text" || control.type == "textarea") {
+                control.valid = false;
+                control.class = "";
+                if (control.required) {
+                    if (control.pattern)
+                        if (control.pattern.test(control.value)) {
+                            control.class = "value-invalid";
+                            control.valid = false;
                         }
 
-                    if((control.value==undefined || control.value==""))
-                        if(/blur/.test(action) && control.required) control.class="value-invalid";
-                        else control.valid=true;
-                    else
-                    if(control.pattern!=undefined )
-                        if(control.pattern.test(value)) control.valid=true;
-                        else control.class="value-invalid";
-                    else control.valid=true;
+                    if ((control.value == undefined || control.value == ""))
+                        if (/blur/.test(action) && control.required) control.class = "value-invalid";
+                        else control.valid = true;
+                    else if (control.pattern != undefined)
+                        if (control.pattern.test(value)) control.valid = true;
+                        else control.class = "value-invalid";
+                    else control.valid = true;
                 }
             }
 
@@ -267,15 +267,15 @@ function appFunctions($routeParams, $rootScope, $http) {
         add: function (name, controls, title, submit, cancel) {
             $f.defaultValue(submit, "Aceptar");
             $f.defaultValue(cancel, "Cancelar");
-            for (var i = 0 ; i < controls.length; i++){
+            for (var i = 0; i < controls.length; i++) {
                 var control = controls[i];
-                if(control.type=="select"){
-                    for (var j =0; j < control.options.length ; j++){
+                if (control.type == "select") {
+                    for (var j = 0; j < control.options.length; j++) {
                         var option = control.options[j];
-                        console.log(">option >"+typeof option);
-                        if(typeof option =='string' ){
-                            var newOption = {value: option, label:option}
-                            controls[i].options[j]= newOption;
+                        console.log(">option >" + typeof option);
+                        if (typeof option == 'string') {
+                            var newOption = {value: option, label: option}
+                            controls[i].options[j] = newOption;
                         }
                     }
                 }
@@ -419,63 +419,75 @@ function appFunctions($routeParams, $rootScope, $http) {
     }
 
     $rootScope.$$datatable = {
-        datatables:[],
-        add:function (name, columns, icon, handles) {
-            this.datatables[name]={
-                name:name,
+        datatables: [],
+        add: function (name, columns, icon, handles) {
+            this.datatables[name] = {
+                name: name,
                 columns: columns,
                 icon: icon,
                 handles: handles,
-                selected:[]
+                selected: []
             };
         },
-        configMenu:function (name, context ) {
-            this.datatables[name].menu=context;
+        configMenu: function (name, context) {
+            this.datatables[name].menu = context;
         },
-        getMenu:function (name) {
-
+        getMenu: function (name) {
             return this.datatables[name].menu;
         },
-        handleMenu:function (name,beforeMenu) {
-            this.datatables[name].beforeMenu=beforeMenu;
+        onMenu: function (name, object) {
+            if (this.datatables[name].beforeMenu)
+                this.datatables[name].beforeMenu(object);
+
+            showable = true;
+            var e = window.event;
+            this.datatables[name].selected=[object.id];
+            $.wait(function () {
+                $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX});
+                $('#context-menu-table').show(400);
+                showable = false;
+            }, 0.1);
         },
-        runAction:function (name, item) {
+        handleMenu: function (name, beforeMenu) {
+            this.datatables[name].beforeMenu = beforeMenu;
+        },
+        runAction: function (name, item) {
             item.action(this.getSelectedObject(name));
         },
 
-        on:function (name, funcs) {
+        on: function (name, funcs) {
 
             this.datatables[name].click = funcs.click;
             this.datatables[name].dbclick = funcs.dbclick;
             this.datatables[name].rclick = funcs.rclick;
         },
-        setDatas:function(name,datas){
+        setDatas: function (name, datas) {
             this.datatables[name].datas = datas;
         },
-        getDatas:function (name) {
+        getDatas: function (name) {
             return this.datatables[name].datas;
         },
-        getView:function (name) {
+        getView: function (name) {
             return this.datatables[name];
         },
-        getValue:function(datatable, name, object){
-            if(this.datatables[datatable].handles[name]!=undefined){
+        getValue: function (datatable, name, object) {
+            if (this.datatables[datatable].handles[name] != undefined) {
                 return this.datatables[datatable].handles[name](object);
-            }else{
+            } else {
                 return object[name];
             }
         },
         isSelected: function (name, object) {
-            for(var i =0; i< this.datatables[name].selected.length; i++){
-                if(this.datatables[name].selected[i]== object.id){
+            for (var i = 0; i < this.datatables[name].selected.length; i++) {
+                if (this.datatables[name].selected[i] == object.id) {
                     return true;
                 }
             }
             return false;
         },
         addSelected: function (name, object) {
-            for(var i =0; i< this.datatables[name].selected.length; i++){
-                if(this.datatables[name].selected[i]== object.id){
+            for (var i = 0; i < this.datatables[name].selected.length; i++) {
+                if (this.datatables[name].selected[i] == object.id) {
                     return false;
                 }
             }
@@ -483,8 +495,8 @@ function appFunctions($routeParams, $rootScope, $http) {
             return true;
         },
         removeSelected: function (name, object) {
-            for(var i =0; i< this.datatables[name].selected.length; i++){
-                if(this.datatables[name].selected[i]== object.id){
+            for (var i = 0; i < this.datatables[name].selected.length; i++) {
+                if (this.datatables[name].selected[i] == object.id) {
                     this.datatables[name].selected.splice(i, 1);
                     return true;
                 }
@@ -495,57 +507,49 @@ function appFunctions($routeParams, $rootScope, $http) {
         removeSelectedAll: function (name) {
             this.datatables[name].selected = [];
         },
-        getSelectedObject: function(name){
+        getSelectedObject: function (name) {
             var data = this.getDatas(name);
-            for(var i =0; i< data.length; i++){
-                if(this.datatables[name].selected[0]== data[i].id){
+            for (var i = 0; i < data.length; i++) {
+                if (this.datatables[name].selected[0] == data[i].id) {
                     return data[i];
                 }
             }
             return false;
         },
         selected: function (name, object) {
-            if(this.datatables[name].beforeMenu!=undefined)
+            if (this.datatables[name].beforeMenu != undefined)
                 this.datatables[name].beforeMenu(this.getSelectedObject(name));
-            if(this.datatables.click!=undefined) this.datatables.click(object);
-            if(!this.isSelected(name, object)){
+            if (this.datatables.click != undefined) this.datatables.click(object);
+            if (!this.isSelected(name, object)) {
                 this.addSelected(name, object);
-            }else{
+            } else {
                 this.removeSelected(name, object);
             }
-
         },
         selectedUnic: function (name, object) {
-            if(this.datatables[name].beforeMenu!=undefined)
-                this.datatables[name].beforeMenu(this.getSelectedObject(name));
-            if(this.datatables[name].selected.length>1){
-                this.removeSelectedAll(name);
-                this.addSelected(name, object);
-            }else{
-                if(!this.isSelected(name, object)){
-                    this.removeSelectedAll(name);
-                    this.addSelected(name, object);
-                }else{
-                    this.removeSelectedAll(name);
-                }
-            }
+            if (this.datatables[name].beforeMenu)
+                this.datatables[name].beforeMenu(object);
+
+            this.datatables[name].selected=[object.id];
         }
     };
 }
 
 $(function () {
-    String.prototype.hasIgnoreFormat=function (string) {
+    String.prototype.hasIgnoreFormat = function (string) {
         return $f.string.hasIgnoreFormat(this, string);
     }
 
-    String.prototype.cleanAccents=function () {
+    String.prototype.cleanAccents = function () {
         return $f.string.normalize(this)
     }
-    String.prototype.htmlEncode=function () {
+    String.prototype.htmlEncode = function () {
         return $f.string.chaset.encode(this);
     }
 
-    $.wait = function (callback, seconds) {return window.setTimeout(callback, seconds * 1000);};
+    $.wait = function (callback, seconds) {
+        return window.setTimeout(callback, seconds * 1000);
+    };
 
     $.fn.extend({
         animateCss: function (animationName) {

@@ -8,10 +8,7 @@
     <button ng-show="$$datatable.getView($$datatable.datatable).search.length>0"
             ng-click="$$datatable.getView($$datatable.datatable).search=''"><i class="fa fa-times"></i></button>
 </div>
-<div id="context-menu-table" class="dropdown-menu">
-    <a class="dropdown-item" ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
-       ng-click="$$datatable.runAction($$datatable.datatable, item)">{{item.label}}</a>
-</div>
+
 
 <div id="content-table" class="panel-body-list  table-responsive">
 
@@ -29,9 +26,8 @@
 
         <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)"
             class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
-            ng-click="$$datatable.selectedUnic($$datatable.datatable, data); "
-            ng-dblclick="$$database.getView($database.database).dbclick(data)"
-            ng-right-click="$$datatable.selectedUnic($$datatable.datatable, data)"
+            ng-click="$$datatable.selectedUnic($$datatable.datatable, data);"
+            ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"
         >
             <td><i class="fa fa-user-circle" aria-hidden="true"></i></td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
@@ -48,38 +44,19 @@
         var showable = false;
         $('#data-table').append(theadClone);
         $("*").click(function () {
-            //$('#context-menu-table').animateCss('bounceOut');
             if (!showable)
                 $.wait(function () {
-                    $('#context-menu-table').hide(400);
+                    $('#context-menu-table').hide(200);
                 }, 0.0);
         });
-        function clickr(tag) {
-            showable = true;
-            if(!$(tag).hasClass("selected"))
-                $(tag).click();
-            var e = window.event;
-            $.wait(function () {
-                $('#context-menu-table').css({"position": "absolute", "top": e.pageY-$(tag).parents(".panel.widget").offset().top, "left": e.pageX-$(tag).parents(".panel.widget").offset().left});
-                $('#context-menu-table').show(400);
-                showable = false;
-            }, 0.1);
-            return false;
 
-        }
         $(document).on("scroll resize", function () {
             var i = 1;
             $('#data-table tbody tr:nth-child(1) td').each(function () {
                 $('#data-table thead.theadclone tr th:nth-child(' + i + ')').css({"min-width": $(this)[0].offsetWidth + "px"}).width($(this).width());
                 i++;
             });
-
-            $('#data-table tbody tr').mousedown(function (e) {
-                //1: izquierda, 2: medio/ruleta, 3: derecho
-
-            });
             $('thead.theadclone').scrollLeft($("#content-table").scrollLeft());
-
             if ($(document).scrollTop() + $("header").height() > $('#data-table').offset().top && $(document).scrollTop() + $("header").height() < $('#data-table').offset().top + $('#data-table').width()) {
                 $('thead.theadclone').width($('#content-table').width());
                 $('thead.theadclone').css({
@@ -95,14 +72,17 @@
                 $('.inter-table').css({"height": 0 + "px"});
             }
         });
-
-        $('#data-table tbody tr ').click(function () {
-            if ($(this).hasClass("selected")) {
-                $(this).after().width($(this).width);
-                $(this).after().height($(this).height);
-            } else {
-                $(this).after().width(0);
-            }
-        });
     </script>
+</div>
+
+
+<div id="table-menu-nav" class="panel">
+    <ul class="nav">
+        <li class="nav-item"
+            ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+            ng-click="$$datatable.runAction($$datatable.datatable, item)">
+            <a class="nav-link active" ><i class="{{item.icon }}"></i>{{item.label}}</a>
+        </li>
+
+    </ul>
 </div>

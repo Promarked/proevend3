@@ -211,12 +211,12 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         {id:9,firstName:"Leticia", lastName:"Cardenas", identification:"56657676", ocupation:"Medico General",date:"08-03-2017", status:"Asistente"},
         {id:11,firstName:"Maria", lastName:"Caraballo", identification:"76986987", ocupation:"Medico General",date:"01-03-2017", status:"Asistente"}
     ]);
-    /*$rootScope.$$datatable.handleMenu("persons",function (object) {
+    $rootScope.$$datatable.handleMenu("persons",function (object) {
         var menu = [
-            {label:"Editar", "action":function (obj) {
+            {label:"Editar", icon:"fa fa-pencil-square-o","action":function (obj) {
                 $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
             }},
-            {label:"Copiar nombre completo", action:function (obj) {
+            {label:"Copiar nombre completo", icon:'fa fa-clipboard' ,action:function (obj) {
                 var $temp = $("<input>")
                 $("body").append($temp);
                 $temp.val(obj.firstName+' '+obj.lastName).select();
@@ -226,15 +226,13 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             }}
         ];
         if(object.status =="Preinscrito"){
-
             menu.push({label:"Convertir en asistente", action:function (obj) {
-                object.status ="Inscrito";
+                obj.status ="Inscrito";
                 $.notify("<b>"+obj.firstName+' '+obj.lastName+' </b> se convirtio en inscrito');
             }});
         }
         $rootScope.$$datatable.configMenu("persons",menu);
-        $scope.$digest();
-    });*/
+    });
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Editar", "action":function (obj) {
             $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');

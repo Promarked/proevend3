@@ -440,3 +440,25 @@ i.fa.fa-caret-down.select-icon-right {
 #context-menu-table{
     transition: 0.15s all;
 }
+
+#context-menu-table a.dropdown-item {
+    padding-left: 35px;
+}
+
+#context-menu-table a.dropdown-item i{
+    margin-left: -20px;
+    float: left;
+    padding-top: 5px;
+}
+
+div#table-menu-nav {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    font-weight: 700;
+}
+
+
+div#table-menu-nav a:hover{
+    color: #B84848;
+}
