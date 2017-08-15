@@ -319,6 +319,10 @@ label.label-float {
     cursor: text;
     color:lightgrey;
     font-size: 13px;
+    height: 27px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     transition: 0.2s all;
 }
 .input-border-btm{
@@ -618,4 +622,7 @@ div.table-menu-nav div.closed-menu a:hover{
 }
 
 
-
+div[data-notify^="container"]{
+    max-width: calc(100% - 40px);
+    z-index: 1053 !important;
+}

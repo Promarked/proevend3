@@ -92,15 +92,19 @@ function appFunctions($routeParams, $rootScope, $http) {
     };
 
     $rootScope.$$page = {
+        data:{},
         config: function (data) {
-            if (data.title != undefined) this.title = data.title;
-            if (data.comment != undefined) this.comment = data.comment;
-            if (data.tabtitle != undefined) this.tabtitle = data.tabtitle + ' | Proevend'; else if (data.title != undefined) this.tabtitle = data.title + ' | Proevend';
+            if (data.title != undefined) this.data.title = data.title;
+            if (data.comment != undefined) this.data.comment = data.comment;
+            if (data.tabtitle != undefined) this.data.tabtitle = data.tabtitle + ' | Proevend'; else if (data.title != undefined) this.data.tabtitle = data.title + ' | Proevend';
+        },
+        get: function(name){
+            return this.data[name];
         }
     }
 
     $rootScope.$$form = {
-        data: {},
+        data: {form:{}},
         $updateSelect: function (control, option) {
             if (control.type == "select") {
                 control.value = option.value;
@@ -172,16 +176,17 @@ function appFunctions($routeParams, $rootScope, $http) {
                 value = control.value.replace(/,|\s/, "(.)*");
                 var results = [], isExact = false;
                 var regExp = new RegExp(value, 'gi');
-                for (var i = 0; i < control.options.length; i++) {
-                    var object = control.options[i];
-                    if (regExp.test(object.cleanAccents())) results.push(object);
+                if(value!=undefined && value!="" && value!=" " && (control.searchMin==undefined || (value.length>=control.searchMin)))
+                    for (var i = 0; i < control.options.length; i++) {
+                        var object = control.options[i];
+                        if (regExp.test(object.cleanAccents())) results.push(object);
 
-                    if (control.value == object) {
-                        isExact = true;
-                        results = [];
-                        break;
+                        if (control.value == object) {
+                            isExact = true;
+                            results = [];
+                            break;
+                        }
                     }
-                }
                 control.results = results;
 
                 if (control.value != undefined && control.value != "") {
@@ -261,28 +266,32 @@ function appFunctions($routeParams, $rootScope, $http) {
 
 
         },
-        add: function (name, controls, title, submit, cancel) {
+        add: function (name, controls, title, submit, cancel, action) {
             $f.defaultValue(submit, "Aceptar");
             $f.defaultValue(cancel, "Cancelar");
             for (var i = 0; i < controls.length; i++) {
                 var control = controls[i];
+
                 if (control.type == "select") {
+                    controls[i].valueLabel="";
                     for (var j = 0; j < control.options.length; j++) {
                         var option = control.options[j];
                         if (typeof option == 'string') {
-                            var newOption = {value: option, label: option}
+                            var newOption = {value: option, label: option};
                             controls[i].options[j] = newOption;
                         }
                     }
+                }else{
+                    controls[i].value="";
                 }
             }
 
-            this.data[name] = {
-                name: name, controls: controls, title: title, submit: submit, cancel: cancel
+            this.data.form[name] = {
+                name: name, controls: controls, title: title, submit: submit, cancel: cancel, action: action
             }
         },
         get: function (name) {
-            return this.data[name];
+            return this.data.form[name];
         }
 
     };
@@ -301,7 +310,19 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (this.is())
                 this.hide();
             else this.show();
+        },
+        setForm:function (name,options) {
+            var form = $rootScope.$$form.get(name);
+            var action = options.action || form.action;
+            var submit = options.submit || form.submit;
+            var cancel = options.cancel || form.cancel;
+            var title = options.title || form.title;
+            $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, action)  ;
+        },
+        resetForm:function () {
+            $("#form-modal").resetForm();
         }
+
     }
 
     $rootScope.$$menu = {
@@ -502,11 +523,16 @@ function appFunctions($routeParams, $rootScope, $http) {
         runAction: function (name, item) {
             var objects = this.getSelectedObjects(name);
             var cont;
-            for (var i = 0; i < objects.length; i++) {
-                cont = item.action(objects[i]);
-                if (cont != undefined && !cont)
-                    break;
+            if(objects.length>0){
+                for (var i = 0; i < objects.length; i++) {
+                    cont = item.action(objects[i]);
+                    if (cont != undefined && !cont)
+                        break;
+                }
+            }else{
+                item.action(objects[i]);
             }
+
         },
 
         on: function (name, funcs) {
@@ -619,6 +645,9 @@ $(function () {
     String.prototype.htmlEncode = function () {
         return $f.string.chaset.encode(this);
     }
+    Array.prototype.clone = function() {
+        return this.slice(0);
+    };
 
     $.wait = function (callback, seconds) {
         return window.setTimeout(callback, seconds * 1000);

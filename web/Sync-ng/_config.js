@@ -165,31 +165,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         ], "Notificaciones", "notify"
     )
 
-    $rootScope.$$form.add("modal", [
-        {
-            name: "pay", label: "Forma de Pago", value: "Efecty", type: "select", options: [
-            "Consignacion",
-            "Efectivo en el evento",
-            "Invitacion"
-        ]
-        },
-        {name: "firthname", label: "Nombres", value: "Manuel", type: "input", col: "2", "required":true},
-        {name: "lastname", label: "Apellidos", value: "De Orta", type: "input", col: "2", "required":true},
-        {name: "comments", label: "Reseña", value: "", type: "textarea"},
-        {type: "date-range", start: "start", end: "end"},
-        {name: "start", label: "Inicia", value: "", type: "date", "required":true},
-        {name: "end", label: "Finaliza ", value: "", type: "date", "required":true},
-        {
-            name: "lotation",
-            label: "Lugar",
-            value: "",
-            message: "Ciudad, Provincia, Pais",
-            type: "autocomplete",
-            options: $$data.cities,
-            required:true,
-            strict:true
-        },
-    ], "Agregar persona", "Guardar");
+    $rootScope.$$form.add("person", preforms.person.fields, "Agregar persona", "Guardar", "Cancelar", preforms.person.action);
     $rootScope.$$datatable.add("persons",[
         {name:"fullname",label:"Nombre Completo", width:200},
         {name:"identification",label:"Identificacion", width:100},
@@ -214,7 +190,9 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
 
     $rootScope.$$datatable.configMenu("persons",[
         {label:"Nuevo", icon:"fa fa-user-plus", nav:true,always:true,"action":function (obj) {
-            $.notify("Nueva Persona");
+            $rootScope.$$modal.resetForm();
+            $rootScope.$$modal.setForm("person", {title:"Agregar Persona"});
+            $rootScope.$$modal.show();
             return false;
         }},
         {label:"Editar", icon:"fa fa-pencil-square-o", nav:true,if:function (object, count) { return count==1 },"action":function (obj) {
