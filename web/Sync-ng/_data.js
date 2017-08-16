@@ -13,7 +13,7 @@ var preforms={
             {name: "idNumber", label: "Numero de identificacion", type: "input", col: "2", "required":true},
             {name: "firthName", label: "Nombres", type: "input", col: "2", "required":true},
             {name: "lastname", label: "Apellidos", type: "input", col: "2", "required":true},
-            {name: "email", label: "Correo electronico", type: "input", "required":true},
+            {name: "email", label: "Correo electronico", type: "email", "required":true, message: "example@dominio.com"},
             {
                 name: "lotation",
                 label: "Lugar de residencia",

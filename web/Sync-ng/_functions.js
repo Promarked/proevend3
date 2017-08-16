@@ -87,11 +87,11 @@ function appFunctions($routeParams, $rootScope, $http) {
         $rootScope.$$root.hideNofifymenu();
     });
     $rootScope.$f = $f;
-    $rootScope.$$wait = function (callback, seconds) {
+    $$wait = $rootScope.$$wait = function (callback, seconds) {
         return window.setTimeout(callback, seconds * 1000);
     };
 
-    $rootScope.$$page = {
+    $$page = $rootScope.$$page = {
         data:{},
         config: function (data) {
             if (data.title != undefined) this.data.title = data.title;
@@ -103,7 +103,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         }
     }
 
-    $rootScope.$$form = {
+    $$form = $rootScope.$$form = {
         data: {form:{}},
         $updateSelect: function (control, option) {
             if (control.type == "select") {
@@ -226,6 +226,28 @@ function appFunctions($routeParams, $rootScope, $http) {
 
             }
 
+            if (control.type == "email") {
+                control.valid = false;
+                control.class = "";
+                var pattern = /^\w+(\.\w+)*@\w+(\.\w+)*(\.[a-zA-Z]{2,4})$/;
+                if (control.required) {
+                    control.valid = false;
+                    if ((control.value == undefined || control.value == ""))
+                        if (/^blur$/.test(action) && control.required) control.class = "value-invalid";
+                        else control.valid = true;
+                    else if ( /blur/.test(action) )
+                        if(pattern.test(control.value))
+                            control.valid = true;
+                        else control.class = "value-invalid";
+                }else{
+                    if ((control.value != undefined && control.value != ""))
+                        if ( /blur/.test(action) )
+                            if(pattern.test(control.value))
+                                control.valid = true;
+                            else control.class = "value-invalid";
+                }
+            }
+
             if (control.type == "input" || control.type == "text" || control.type == "textarea") {
                 control.valid = false;
                 control.class = "";
@@ -245,6 +267,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                     else control.valid = true;
                 }
             }
+
 
             /*if (control.type == "date" ) {
              if(control.required){
@@ -292,11 +315,16 @@ function appFunctions($routeParams, $rootScope, $http) {
         },
         get: function (name) {
             return this.data.form[name];
+        },
+        reset:function(name){
+            for(var i = 0; i < this.get(name).controls.length; i++){
+                this.data.form[name].controls[i].class="";
+            }
         }
 
     };
 
-    $rootScope.$$modal = {
+    $$modal = $rootScope.$$modal = {
         show: function () {
             if (!this.is()) $("#modal_button").click();
         },
@@ -320,12 +348,12 @@ function appFunctions($routeParams, $rootScope, $http) {
             $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, action)  ;
         },
         resetForm:function () {
-            $("#form-modal").resetForm();
+            $rootScope.$$form.reset("modal");
         }
 
     }
 
-    $rootScope.$$menu = {
+    $$menu = $rootScope.$$menu = {
         data: {},
         select: function (index) {
             if (index != undefined) {
@@ -349,7 +377,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         }
     }
 
-    $rootScope.$$root = {
+    $$root = $rootScope.$$root = {
         /*Sub menu Functions*/
         toggleSubmenu: function () {
             if (this.isSubmenu())this.hideSubmenu();
@@ -408,7 +436,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         }
     }
 
-    $rootScope.$$submenu = {
+    $$submenu = $rootScope.$$submenu = {
         configs: [],
         data: {},
         add: function (name, items, title, mode) {
@@ -435,7 +463,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         items: []
     }
 
-    $rootScope.$$datatable = {
+    $$datatable = $rootScope.$$datatable = {
         datatables: [],
         add: function (name, columns, icon, handles) {
             this.datatables[name] = {

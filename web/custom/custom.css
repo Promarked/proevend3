@@ -623,6 +623,6 @@ div.table-menu-nav div.closed-menu a:hover{
 
 
 div[data-notify^="container"]{
-    max-width: calc(100% - 40px);
+    max-width: calc(300px - 40px);
     z-index: 1053 !important;
 }
