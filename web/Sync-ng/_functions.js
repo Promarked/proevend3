@@ -92,19 +92,19 @@ function appFunctions($routeParams, $rootScope, $http) {
     };
 
     $$page = $rootScope.$$page = {
-        data:{},
+        data: {},
         config: function (data) {
             if (data.title != undefined) this.data.title = data.title;
             if (data.comment != undefined) this.data.comment = data.comment;
             if (data.tabtitle != undefined) this.data.tabtitle = data.tabtitle + ' | Proevend'; else if (data.title != undefined) this.data.tabtitle = data.title + ' | Proevend';
         },
-        get: function(name){
+        get: function (name) {
             return this.data[name];
         }
     }
 
     $$form = $rootScope.$$form = {
-        data: {form:{}},
+        data: {form: {}},
         $updateSelect: function (control, option) {
             if (control.type == "select") {
                 control.value = option.value;
@@ -127,6 +127,14 @@ function appFunctions($routeParams, $rootScope, $http) {
             }
 
             if (control.type == "select") {
+
+                var event = window.event;
+                console.log("Key : "+event.keyCode)
+                console.log("Index : "+control.index)
+                if(!(event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13)){
+                    control.index = -1;
+                }
+
                 if (value != undefined) control.valueLabel = value;
                 control.valid = false;
                 control.class = "";
@@ -152,6 +160,8 @@ function appFunctions($routeParams, $rootScope, $http) {
                             break;
                         }
                     }
+
+
                     if (!isExact) {
                         if (/blur/.test(action)) {
                             control.class = "value-invalid";
@@ -167,6 +177,20 @@ function appFunctions($routeParams, $rootScope, $http) {
                         control.valid = true;
                     }
                 }
+
+                if(event.keyCode == 38){
+                    if(control.index>0)
+                        control.index=control.index-1;
+                }else if(event.keyCode == 40){
+                    if(control.index<control.results.length-1)
+                        control.index=control.index+1;
+                }else if(event.keyCode == 13){
+                    if(control.index>=0 && control.index<=control.results.length-1)
+                        $$form.$updateSelect(control, control.results[control.index]);
+                    control.index=-1;
+                }else{
+                    control.index=-1;
+                }
             }
 
             if (control.type == "autocomplete") {
@@ -176,7 +200,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                 value = control.value.replace(/,|\s/, "(.)*");
                 var results = [], isExact = false;
                 var regExp = new RegExp(value, 'gi');
-                if(value!=undefined && value!="" && value!=" " && (control.searchMin==undefined || (value.length>=control.searchMin)))
+                if (value != undefined && value != "" && value != " " && (control.searchMin == undefined || (value.length >= control.searchMin)))
                     for (var i = 0; i < control.options.length; i++) {
                         var object = control.options[i];
                         if (regExp.test(object.cleanAccents())) results.push(object);
@@ -233,16 +257,16 @@ function appFunctions($routeParams, $rootScope, $http) {
                 if (control.required) {
                     control.valid = false;
                     if ((control.value == undefined || control.value == ""))
-                        if (/^blur$/.test(action) && control.required) control.class = "value-invalid";
+                        if ("blur" == (action) && control.required) control.class = "value-invalid";
                         else control.valid = true;
-                    else if ( /blur/.test(action) )
-                        if(pattern.test(control.value))
+                    else if ("blur" == (action))
+                        if (pattern.test(control.value))
                             control.valid = true;
                         else control.class = "value-invalid";
-                }else{
+                } else {
                     if ((control.value != undefined && control.value != ""))
-                        if ( /blur/.test(action) )
-                            if(pattern.test(control.value))
+                        if ("blur" == (action))
+                            if (pattern.test(control.value))
                                 control.valid = true;
                             else control.class = "value-invalid";
                 }
@@ -251,43 +275,48 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (control.type == "input" || control.type == "text" || control.type == "textarea") {
                 control.valid = false;
                 control.class = "";
-                if (control.required) {
+
+                if(control.value != undefined && control.value != "" ){
+                    if(control.pattern!=undefined){
+                        if(control.pattern.test(control.value)){
+                            control.valid = true;
+                        }else {
+                            if(action=="blur")
+                                control.class = "value-invalid";
+                        }
+                    }else{
+                        control.valid = true;
+                    }
+                }else{
+                    if(control.required){
+                        if(action=="blur")
+                            control.class = "value-invalid";
+                    }else{
+                        control.valid = true;
+                    }
+                }
+
+                /*if (control.required) {
                     if (control.pattern)
                         if (control.pattern.test(control.value)) {
                             control.class = "value-invalid";
                             control.valid = false;
                         }
 
-                    if ((control.value == undefined || control.value == ""))
-                        if (/blur/.test(action) && control.required) control.class = "value-invalid";
-                        else control.valid = true;
-                    else if (control.pattern != undefined)
-                        if (control.pattern.test(value)) control.valid = true;
-                        else control.class = "value-invalid";
-                    else control.valid = true;
-                }
+                    if ((control.value == undefined || control.value == "")) {
+                        if (/blur/.test(action))
+                            if (control.required) control.class = "value-invalid";
+                            else control.valid = true;
+                    } else if (control.pattern != undefined)
+                        if (control.pattern.test(value)) {
+                            control.valid = true;
+                        }else
+                            control.class = "value-invalid";
+                    else {
+                        control.valid = true;
+                    }
+                }*/
             }
-
-
-            /*if (control.type == "date" ) {
-             if(control.required){
-             if(control.pattern){
-             if(control.pattern.test(control.value)){
-             control.class="value-invalid";
-             control.valid=false;
-             }
-             }
-             if(action=="blur" && (control.value=="" || control.value==undefined )){
-             control.class="value-invalid";
-             control.valid=false;
-             }else{
-             control.class="";
-             control.valid=true;
-             }
-             }
-             }*/
-
-
         },
         add: function (name, controls, title, submit, cancel, action) {
             $f.defaultValue(submit, "Aceptar");
@@ -296,7 +325,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                 var control = controls[i];
 
                 if (control.type == "select") {
-                    controls[i].valueLabel="";
+                    controls[i].valueLabel = "";
                     for (var j = 0; j < control.options.length; j++) {
                         var option = control.options[j];
                         if (typeof option == 'string') {
@@ -304,8 +333,8 @@ function appFunctions($routeParams, $rootScope, $http) {
                             controls[i].options[j] = newOption;
                         }
                     }
-                }else{
-                    controls[i].value="";
+                } else {
+                    controls[i].value = "";
                 }
             }
 
@@ -316,9 +345,36 @@ function appFunctions($routeParams, $rootScope, $http) {
         get: function (name) {
             return this.data.form[name];
         },
-        reset:function(name){
-            for(var i = 0; i < this.get(name).controls.length; i++){
-                this.data.form[name].controls[i].class="";
+        reset: function (name) {
+            for (var i = 0; i < this.get(name).controls.length; i++) {
+                this.data.form[name].controls[i].class = "";
+            }
+        },
+        submit: function (name) {
+            var form = this.get(name);
+            var controls = form.controls;
+            var invalids = [];
+            for (var i = 0; i < controls.length; i++) {
+                var control = controls[i];
+                $$form.$control(control, control.value, "blur");
+                if (!control.valid) {
+                    invalids.push(control.label);
+                }
+            }
+            if (invalids.length > 0) {
+                $.notify({
+                    title: '<h2>Rebice los campos</h2>',
+                    message: '<b> <ul><li>' + invalids.join('</li><li>') + '</li></ul></b>.'
+                }, {
+                    type: 'danger'
+                });
+            } else {
+                $.notify({
+                    title: '<h2>Datos Correctos</h2>',
+                    message: 'Enviando datos.'
+                }, {
+                    type: 'info'
+                });
             }
         }
 
@@ -339,17 +395,18 @@ function appFunctions($routeParams, $rootScope, $http) {
                 this.hide();
             else this.show();
         },
-        setForm:function (name,options) {
+        setForm: function (name, options) {
             var form = $rootScope.$$form.get(name);
             var action = options.action || form.action;
             var submit = options.submit || form.submit;
             var cancel = options.cancel || form.cancel;
             var title = options.title || form.title;
-            $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, action)  ;
+            $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, action);
         },
-        resetForm:function () {
+        resetForm: function () {
             $rootScope.$$form.reset("modal");
-        }
+        },
+
 
     }
 
@@ -478,23 +535,23 @@ function appFunctions($routeParams, $rootScope, $http) {
             this.datatables[name].menu = context;
         },
         getMenu: function (name, type) {
-            if(type!=undefined){
-                if(type=='nav-object'){
-                    if(this.getSelectedObjects(name).length>0){
+            if (type != undefined) {
+                if (type == 'nav-object') {
+                    if (this.getSelectedObjects(name).length > 0) {
                         var menutemp = this.datatables[name].menu;
                         var menu = [];
-                        for(var i =0 ; i < menutemp.length; i++){
-                            if(menutemp[i].nav && this.menuConditional(name,menutemp[i] ) )
+                        for (var i = 0; i < menutemp.length; i++) {
+                            if (menutemp[i].nav && this.menuConditional(name, menutemp[i]))
                                 menu.push(menutemp[i]);
                         }
                         this.datatables[name].menu$temp = menu;
                         return menu;
-                    }else {
+                    } else {
                         return this.datatables[name].menu$temp;
                     }
                 }
 
-            }else{
+            } else {
 
             }
             return this.datatables[name].menu;
@@ -512,7 +569,7 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (!is)
                 this.datatables[name].selected = [object.id];
 
-            $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX, "display":"block"});
+            $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX, "display": "block"});
             $('#context-menu-table').show();
             showable = false;
 
@@ -525,7 +582,7 @@ function appFunctions($routeParams, $rootScope, $http) {
         getLabelSelected: function (name) {
             var l = this.getView(name).selected.length;
 
-            if(l==0){
+            if (l == 0) {
                 return this.datatables[name].labelSelected$temp;
             }
             if (l < 2) {
@@ -539,10 +596,10 @@ function appFunctions($routeParams, $rootScope, $http) {
                     this.datatables[name].labelSelected$temp = object.firstName + " " + object.lastName;
                 else if (object.firstName != undefined)
                     this.datatables[name].labelSelected$temp = object.firstName;
-                else this.datatables[name].labelSelected$temp =  object[1];
+                else this.datatables[name].labelSelected$temp = object[1];
 
                 return this.datatables[name].labelSelected$temp;
-            } else if(l>1){
+            } else if (l > 1) {
                 this.datatables[name].labelSelected$temp = l + " Objetos seleccionados";
                 return this.datatables[name].labelSelected$temp;
             }
@@ -551,13 +608,13 @@ function appFunctions($routeParams, $rootScope, $http) {
         runAction: function (name, item) {
             var objects = this.getSelectedObjects(name);
             var cont;
-            if(objects.length>0){
+            if (objects.length > 0) {
                 for (var i = 0; i < objects.length; i++) {
                     cont = item.action(objects[i]);
                     if (cont != undefined && !cont)
                         break;
                 }
-            }else{
+            } else {
                 item.action(objects[i]);
             }
 
@@ -673,7 +730,7 @@ $(function () {
     String.prototype.htmlEncode = function () {
         return $f.string.chaset.encode(this);
     }
-    Array.prototype.clone = function() {
+    Array.prototype.clone = function () {
         return this.slice(0);
     };
 

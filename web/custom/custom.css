@@ -344,6 +344,11 @@ label.label-float {
      top: -18px;
  }
 
+.dropdown-menu .dropdown-item.active{
+    color: white;
+    background: #0AA699 !important;
+}
+
 input.ng-not-empty:focus ~ .dropdown-menu.showable ,.dropdown-menu.showable:hover, input.input-select:focus ~ .dropdown-menu.showable {
     display: inherit;
     width: 100%;
