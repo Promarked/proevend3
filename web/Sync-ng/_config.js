@@ -64,6 +64,8 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
 /**Controladores*/
 ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootScope) {
     $scope.$broadcast("$locationChangeStart");
+    $service = new Service($http,$rootScope);
+    $service.setGateway("person", "person");
 
     $$menu.config([
         {
@@ -165,7 +167,11 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         ], "Notificaciones", "notify"
     )
 
-    $$form.add("person", preforms.person.fields, "Agregar persona", "Guardar", "Cancelar", preforms.person.action);
+    $$form.add("person", preforms.person.fields, "Agregar persona", "Guardar", "Cancelar",function (data) {
+        $service.create("person",data, function () {
+
+        });
+    });
     $$datatable.add("persons",[
         {name:"fullname",label:"Nombre Completo", width:200},
         {name:"identification",label:"Identificacion", width:100},
@@ -177,11 +183,12 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             return data.firstName + " " + data.lastName;
         }
     });
-    $$datatable.setDatas("persons",[]);
 
+    $$datatable.setDatas("persons",[]);
+    $service.setListView("person", $$datatable.get("person"));
     $$datatable.configMenu("persons",[
         {label:"Nuevo", icon:"fa fa-user-plus", nav:true,always:true,"action":function (obj) {
-            $rootScope.$$modal.setForm("person", {title:"Agregar Persona"});
+            $rootScope.$$modal.setForFm("person", {title:"Agregar Persona"});
             $rootScope.$$modal.resetForm();
             $rootScope.$$modal.show();
             return false;

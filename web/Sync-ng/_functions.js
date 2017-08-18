@@ -129,8 +129,6 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (control.type == "select") {
 
                 var event = window.event;
-                console.log("Key : "+event.keyCode)
-                console.log("Index : "+control.index)
                 if(!(event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13)){
                     control.index = -1;
                 }
@@ -296,26 +294,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                     }
                 }
 
-                /*if (control.required) {
-                    if (control.pattern)
-                        if (control.pattern.test(control.value)) {
-                            control.class = "value-invalid";
-                            control.valid = false;
-                        }
 
-                    if ((control.value == undefined || control.value == "")) {
-                        if (/blur/.test(action))
-                            if (control.required) control.class = "value-invalid";
-                            else control.valid = true;
-                    } else if (control.pattern != undefined)
-                        if (control.pattern.test(value)) {
-                            control.valid = true;
-                        }else
-                            control.class = "value-invalid";
-                    else {
-                        control.valid = true;
-                    }
-                }*/
             }
         },
         add: function (name, controls, title, submit, cancel, action) {
@@ -354,11 +333,14 @@ function appFunctions($routeParams, $rootScope, $http) {
             var form = this.get(name);
             var controls = form.controls;
             var invalids = [];
+            var data ={};
             for (var i = 0; i < controls.length; i++) {
                 var control = controls[i];
                 $$form.$control(control, control.value, "blur");
                 if (!control.valid) {
                     invalids.push(control.label);
+                }else{
+                    data[control.name] = control.value;
                 }
             }
             if (invalids.length > 0) {
@@ -375,6 +357,9 @@ function appFunctions($routeParams, $rootScope, $http) {
                 }, {
                     type: 'info'
                 });
+                $.notify("success");
+                this.data.form[name].action(data);
+                $.notify("Finish");
             }
         }
 
@@ -396,12 +381,13 @@ function appFunctions($routeParams, $rootScope, $http) {
             else this.show();
         },
         setForm: function (name, options) {
-            var form = $rootScope.$$form.get(name);
+            var form = $$form.get(name);
             var action = options.action || form.action;
             var submit = options.submit || form.submit;
             var cancel = options.cancel || form.cancel;
             var title = options.title || form.title;
-            $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, action);
+
+            $rootScope.$$form.add("modal", form.controls.clone(), title, submit, cancel, form.action);
         },
         resetForm: function () {
             $rootScope.$$form.reset("modal");
