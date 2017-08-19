@@ -11,8 +11,8 @@ var preforms={
         fields: [
             {name: "typeNumber", label: "Tipo de identificacion", options:["Cedula de ciudadania", "Tarjeta de identidad", "Pasaporte"],type: "select", col: "2", "required":true},
             {name: "idNumber", label: "Numero de identificacion", type: "input", col: "2", "required":true},
-            {name: "firthName", label: "Nombres", type: "input", col: "2", "required":true},
-            {name: "lastname", label: "Apellidos", type: "input", col: "2", "required":true},
+            {name: "firstName", label: "Nombres", type: "input", col: "2", "required":true},
+            {name: "lastName", label: "Apellidos", type: "input", col: "2", "required":true},
             {name: "email", label: "Correo electronico", type: "email", "required":true, message: "example@dominio.com"},
             {
                 name: "lotation",

@@ -11,11 +11,11 @@ function Service ($http, $scope) {
     this.setGateway = function (name, url, options) {
         var gateway = {
             route:url,
-            create:options.create? options.create:'.create',
-            edit:options.edit? options.edit:'.edit',
-            delete:options.edit? options.delete:'.delete',
-            view:options.edit? options.get:'.json',
-            listView:options.listView? options.listView:undefined,
+            create:options && options.create? options.create:'.create',
+            edit:options && options.edit? options.edit:'.edit',
+            delete:options && options.edit? options.delete:'.delete',
+            view:options && options.edit? options.get:'.json',
+            listView:options && options.listView? options.listView:undefined,
         }
         this.$gateway[name]= gateway;
         this.$temp.data[name]={};
@@ -26,12 +26,10 @@ function Service ($http, $scope) {
     }
 
     this.create= function (name, data, fn) {
-        console.log("Create Entity");
         data.$tid=this.uniqid();
         data.$inprocess = "create";
-        this.$temp.data[name][$tid]=data;
+        this.$temp.data[name][data.$tid]=data;
         if(this.$gateway[name].listView!=undefined){
-            console.log("Add Entity");
             this.$gateway[name].listView.datas.push(data);
         }
     };

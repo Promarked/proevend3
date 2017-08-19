@@ -25,9 +25,13 @@
         <tr ng-repeat="data in $$datatable.getDatas($$datatable.datatable)"
             class="{{ $$datatable.isSelected($$datatable.datatable, data)?'selected':''  }}"
         >
-            <td ng-click="$$datatable.selected($$datatable.datatable, data);"
-                ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"
-            ><i class="fa fa-user-circle" aria-hidden="true"></i></td>
+            <td ng-click="$$datatable.selected($$datatable.datatable, data)"
+                ng-right-click="$$datatable.onMenu($$datatable.datatable, data)">
+
+                <i class="fa fa-spinner fa-pulse fa-fw" ng-if="data.$inprocess = 'create'"></i>
+
+                <i class="fa fa-user-circle" aria-hidden="true" ng-if="data.$inprocess==undefined"></i>
+            </td>
             <td ng-repeat="column in $$datatable.getView($$datatable.datatable).columns"
                 ng-click="$$datatable.selectedUnic($$datatable.datatable, data);"
                 ng-right-click="$$datatable.onMenu($$datatable.datatable, data)"

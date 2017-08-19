@@ -173,11 +173,11 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         });
     });
     $$datatable.add("persons",[
-        {name:"fullname",label:"Nombre Completo", width:200},
-        {name:"identification",label:"Identificacion", width:100},
-        {name:"ocupation",label:"Ocupacion", width:80},
-        {name:"status",label:"Estado", width:80},
-        {name:"date",label:"Fecha de creacion", width:80}
+        {name:"fullname",label:"Nombre Completo"},
+        {name:"idNumber",label:"Identificacion"},
+        {name:"ocupation",label:"Ocupacion"},
+        {name:"status",label:"Estado"},
+        {name:"date",label:"Fecha de creacion"}
     ],"", {
         fullname:function (data) {
             return data.firstName + " " + data.lastName;
@@ -185,12 +185,12 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
     });
 
     $$datatable.setDatas("persons",[]);
-    $service.setListView("person", $$datatable.get("person"));
+    $service.setListView("person", $$datatable.getView("persons"));
     $$datatable.configMenu("persons",[
         {label:"Nuevo", icon:"fa fa-user-plus", nav:true,always:true,"action":function (obj) {
-            $rootScope.$$modal.setForFm("person", {title:"Agregar Persona"});
-            $rootScope.$$modal.resetForm();
-            $rootScope.$$modal.show();
+            $$modal.setForm("person", {title:"Agregar Persona"});
+            $$modal.resetForm();
+            $$modal.show();
             return false;
         }},
         {label:"Editar", icon:"fa fa-pencil-square-o", nav:true,if:function (object, count) { return count==1 },"action":function (obj) {
