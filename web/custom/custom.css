@@ -319,6 +319,10 @@ label.label-float {
     cursor: text;
     color:lightgrey;
     font-size: 13px;
+    height: 27px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     transition: 0.2s all;
 }
 .input-border-btm{
@@ -339,6 +343,11 @@ label.label-float {
      color: #0AA699;
      top: -18px;
  }
+
+.dropdown-menu .dropdown-item.active{
+    color: white;
+    background: #0AA699 !important;
+}
 
 input.ng-not-empty:focus ~ .dropdown-menu.showable ,.dropdown-menu.showable:hover, input.input-select:focus ~ .dropdown-menu.showable {
     display: inherit;
@@ -618,4 +627,7 @@ div.table-menu-nav div.closed-menu a:hover{
 }
 
 
-
+div[data-notify^="container"]{
+    max-width: calc(300px - 40px);
+    z-index: 1053 !important;
+}

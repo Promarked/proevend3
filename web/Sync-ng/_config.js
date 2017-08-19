@@ -64,8 +64,10 @@ ngapp.run(function ($routeParams, $rootScope, $http) {
 /**Controladores*/
 ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootScope) {
     $scope.$broadcast("$locationChangeStart");
+    $service = new Service($http,$rootScope);
+    $service.setGateway("person", "person");
 
-    $rootScope.$$menu.config([
+    $$menu.config([
         {
             label: "Dashboard", controller: "dashborad", link: "#!", icon: "fa fa-dashboard"
         },
@@ -83,10 +85,10 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         }
     ]);
 
-    $rootScope.$$wait(function () {
+    $$wait(function () {
         $("body").click();
     }, 0.5);
-    $rootScope.$$submenu.add(
+    $$submenu.add(
         "user",
         [
             {
@@ -138,7 +140,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             }
         ], "Usuario"
     )
-    $rootScope.$$submenu.add(
+    $$submenu.add(
         "people",
         [
             {
@@ -151,7 +153,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             }
         ], "Personas", "notify"
     )
-    $rootScope.$$submenu.add(
+    $$submenu.add(
         "news",
         [
             {
@@ -165,32 +167,12 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
         ], "Notificaciones", "notify"
     )
 
-    $rootScope.$$form.add("modal", [
-        {
-            name: "pay", label: "Forma de Pago", value: "Efecty", type: "select", options: [
-            "Consignacion",
-            "Efectivo en el evento",
-            "Invitacion"
-        ]
-        },
-        {name: "firthname", label: "Nombres", value: "Manuel", type: "input", col: "2", "required":true},
-        {name: "lastname", label: "Apellidos", value: "De Orta", type: "input", col: "2", "required":true},
-        {name: "comments", label: "Reseña", value: "", type: "textarea"},
-        {type: "date-range", start: "start", end: "end"},
-        {name: "start", label: "Inicia", value: "", type: "date", "required":true},
-        {name: "end", label: "Finaliza ", value: "", type: "date", "required":true},
-        {
-            name: "lotation",
-            label: "Lugar",
-            value: "",
-            message: "Ciudad, Provincia, Pais",
-            type: "autocomplete",
-            options: $$data.cities,
-            required:true,
-            strict:true
-        },
-    ], "Agregar persona", "Guardar");
-    $rootScope.$$datatable.add("persons",[
+    $$form.add("person", preforms.person.fields, "Agregar persona", "Guardar", "Cancelar",function (data) {
+        $service.create("person",data, function () {
+
+        });
+    });
+    $$datatable.add("persons",[
         {name:"fullname",label:"Nombre Completo", width:200},
         {name:"identification",label:"Identificacion", width:100},
         {name:"ocupation",label:"Ocupacion", width:80},
@@ -201,20 +183,14 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             return data.firstName + " " + data.lastName;
         }
     });
-    $rootScope.$$datatable.setDatas("persons",[
-        {id:1,firstName:"Manuel", lastName:"De Orta", identification:"104749283", ocupation:"Ingeniero de Sistemas",date:"10-03-2017", status:"Preinscrito"},
-        {id:2,firstName:"Victor", lastName:"De Orta", identification:"698876786", ocupation:"Ingeniero Civil",date:"11-03-2017", status:"Inscrito"},
-        {id:3,firstName:"Marly", lastName:"Melo", identification:"3242342", ocupation:"Esteticista",date:"11-03-2017", status:"Inscrito"},
-        {id:5,firstName:"Valentina", lastName:"De Orta", identification:"587658", ocupation:"Psicologa",date:"12-03-2017", status:"Preinscrito"},
-        {id:6,firstName:"Jorge", lastName:"Osorio", identification:"798987", ocupation:"Logistico",date:"20-03-2017", status:"Inscrito"},
-        {id:8,firstName:"Clara", lastName:"Caraballo", identification:"546547", ocupation:"Ingeniero",date:"06-03-2017", status:"Preinscrito"},
-        {id:9,firstName:"Leticia", lastName:"Cardenas", identification:"56657676", ocupation:"Medico General",date:"08-03-2017", status:"Asistente"},
-        {id:11,firstName:"Maria", lastName:"Caraballo", identification:"76986987", ocupation:"Medico General",date:"01-03-2017", status:"Asistente"}
-    ]);
 
-    $rootScope.$$datatable.configMenu("persons",[
+    $$datatable.setDatas("persons",[]);
+    $service.setListView("person", $$datatable.get("person"));
+    $$datatable.configMenu("persons",[
         {label:"Nuevo", icon:"fa fa-user-plus", nav:true,always:true,"action":function (obj) {
-            $.notify("Nueva Persona");
+            $rootScope.$$modal.setForFm("person", {title:"Agregar Persona"});
+            $rootScope.$$modal.resetForm();
+            $rootScope.$$modal.show();
             return false;
         }},
         {label:"Editar", icon:"fa fa-pencil-square-o", nav:true,if:function (object, count) { return count==1 },"action":function (obj) {

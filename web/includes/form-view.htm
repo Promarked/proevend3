@@ -1,13 +1,15 @@
-<form class="form-horizontal ">
+<form class="form-horizontal " ng-submit="$$form.submit($$form.form)">
     <div ng-repeat="control in $$form.get($$form.form).controls"
          style="width: {{ control.col !=undefined ? (100/control.col):'100'}}% ; float:left">
-        <div class="form-group" ng-if="control.type=='input'">
+        <div class="form-group" id="form-{{$$form.form}}" ng-if="control.type=='input' || control.type=='text' || control.type=='email'">
             <div class=" col-sm-12 controls float-label {{ control.class }}">
                 <input type="text" ng-model="control.value" class="input-border-btm {{ control.class }}"
                        ng-blur="$$form.$control(control, control.value, 'blur')"
                        ng-click="$$form.$control(control, control.value, 'click')"
                        ng-init="$$form.$control(control, control.value, 'init')"
-                       ng-keyup="$$form.$control(control, control.value, 'keydown')"/>
+                       ng-keyup="$$form.$control(control, control.value, 'keydown')"
+                       ng-enter="$$form.submit($$form.form)"
+                />
                 <label onclick="$(this).prev( 'input' ).focus()"
                        class="control-label label-float {{ control.labelclass }}" >{{ control.label}} <span ng-if="control.required" >*</span></label>
                 <label class="help-inline" ng-bind="control.message">Some hint here</label>
@@ -48,6 +50,7 @@
                            ng-init="$$form.$control(startcontrol, startcontrol.value, 'init'); startcontrol.showable=false"
                            ng-keyup="$$form.$control(startcontrol, startcontrol.value, 'keydown')"
                            ng-change="$$form.$control(startcontrol, startcontrol.value, 'change')"
+                           ng-enter="$$form.submit($$form.form)"
                     />
                     <label onclick="$(this).prev( 'input' ).focus()"
                            class="control-label label-float {{ startcontrol.labelclass }}"
@@ -67,6 +70,7 @@
                            ng-init="$$form.$control(endcontrol, endcontrol.value, 'init'); endcontrol.showable=false"
                            ng-keyup="$$form.$control(endcontrol, endcontrol.value, 'keydown')"
                            ng-change="$$form.$control(endcontrol, endcontrol.value, 'change')"
+                           ng-enter="$$form.submit($$form.form)"
 
                     >
                     <label onclick="$(this).prev( 'input' ).focus()"
@@ -97,6 +101,7 @@
                        ng-init="$$form.$control(control, control.value, 'init')"
                        ng-keyup="$$form.$control(control, control.value, 'keydown')"
                        ng-change="$$form.$control(control, control.value, 'change')"
+                       ng-enter="$$form.submit($$form.form)"
 
                 />
                 <label onclick="$(this).prev( 'input' ).focus()" class="control-label label-float {{ control.labelclass }}" >
@@ -119,6 +124,7 @@
                 <input type="text" ng-model="control.valueLabel"
                        ng-blur="$$form.$control(control, control.valueLabel, 'blur')"
                        ng-click="$$form.$control(control, control.valueLabel, 'click')"
+                       ng-change="$$form.$control(control, control.valueLabel, 'change')"
                        ng-init="$$form.$control(control, control.valueLabel, 'init')"
                        ng-keyup="$$form.$control(control, control.valueLabel, 'keydown')"
                        class="input-border-btm input-select {{ control.class }}"
@@ -130,8 +136,10 @@
                 </label>
                 <label class="help-inline" ng-bind="control.message">Some hint here</label>
                 <div class="dropdown-menu scoll-view {{ control.results.length>0? 'showable':'' }}">
-                    <a class="dropdown-item" ng-repeat="result in control.results"
-                       ng-click="$$form.$updateSelect(control, result); ">{{ result.label }}
+                    <a ng-repeat="(index, result) in control.results"
+                       ng-click="$$form.$updateSelect(control, result); $$form.$control(control, control.valueLabel, 'init')"
+                       class="dropdown-item {{index==control.index ? 'active':''}}"
+                    >{{ result.label }}
                     </a>
                 </div>
             </div>
@@ -143,14 +151,16 @@
                        ng-blur="$$form.$control(control, control.value, 'blur')"
                        ng-click="$$form.$control(control, control.value, 'click')"
                        ng-init="$$form.$control(control, control.value, 'init')"
-                       ng-keyup="$$form.$control(control, control.value, 'keydown')"/>
+                       ng-keyup="$$form.$control(control, control.value, 'keydown')"
+                       ng-enter="$$form.submit($$form.form)"
+                />
                 <label onclick="$(this).prev( 'input' ).focus()"
                        class="control-label label-float {{ control.labelclass }}">
                     {{ control.label}} <span ng-if="control.required" >*</span>
                 </label>
                 <label class="help-inline" ng-bind="control.message">Some hint here</label>
                 <div class="dropdown-menu scoll-view {{ control.results.length>0? 'showable':'' }}" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" ng-repeat="result in control.results" ng-click="$$form.$control(control, result)">{{ result }}</a>
+                    <a class="dropdown-item" ng-repeat="result in control.results track by $index" ng-click="$$form.$control(control, result)">{{ result }}</a>
                 </div>
             </div>
         </div>
