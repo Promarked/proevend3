@@ -357,9 +357,10 @@ function appFunctions($routeParams, $rootScope, $http) {
                 }, {
                     type: 'info'
                 });
-                $.notify("success");
+                if(name=="modal")
+                    $$modal.hide();
                 this.data.form[name].action(data);
-                $.notify("Finish");
+
             }
         }
 

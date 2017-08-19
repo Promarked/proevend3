@@ -27,6 +27,7 @@ function Service ($http, $scope) {
 
     this.create= function (name, data, fn) {
         data.$tid=this.uniqid();
+        data.id=this.uniqid();
         data.$inprocess = "create";
         this.$temp.data[name][data.$tid]=data;
         if(this.$gateway[name].listView!=undefined){
