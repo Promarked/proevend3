@@ -357,9 +357,13 @@ function appFunctions($routeParams, $rootScope, $http) {
                 }, {
                     type: 'info'
                 });
+
+
+                console.log("Ejecutando Action");
+                this.data.form[name].action(data);
+
                 if(name=="modal")
                     $$modal.hide();
-                this.data.form[name].action(data);
 
             }
         }
@@ -616,7 +620,13 @@ function appFunctions($routeParams, $rootScope, $http) {
             this.datatables[name].datas = datas;
         },
         getDatas: function (name) {
-            return this.datatables[name].datas;
+
+            if(this.datatables[name].tempData!=undefined){
+                var datas = this.datatables[name].tempData.concat(this.datatables[name].datas);
+            }else{
+                var datas = this.datatables[name].datas;
+            }
+            return datas;
         },
         getView: function (name) {
             return this.datatables[name];
