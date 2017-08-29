@@ -1,0 +1,248 @@
+{% extends "AppBundle:Layouts:login_layout.html.twig" %}
+
+{% block title %}Iniciar Sesion - {{ parent() }}{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset("css/loading.css") }}" type="text/css" rel="stylesheet">
+    <style>
+        #circle-login {
+            transition: 0.4s background;
+        }
+
+        #label-login {
+            display: none;
+            opacity: 0;
+        }
+
+        .background-blue {
+            background-color: lightblue !important;
+        }
+
+        .background-pink {
+            background-color: hotpink !important;
+        }
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script>
+        /**
+         * Created by Acer on 15/01/2017.
+         */
+        var app = angular.module('AppProevend', []);
+
+        app.controller('controllerComunit', function ($scope) {
+
+            $("form").submit(function () {
+                $("#status-login").animate({
+                    opacity: 0
+                }, 400, function () {
+                    $("#status-login").attr("class", "fa fa-spinner fa-spin");
+                    $("#status-login").animate({
+                        opacity: 1
+                    }, 400, function () {
+
+                    });
+                });
+                $("#login-form").hide("drop", {direction: "up"}, 400);
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    type: method,
+                    url: action,
+                    data: formData,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                }).done(function (request, textStatus, jqXHR) {
+                    var status = request.status;
+                    var type = request.type;
+                    if (status == "Authorized") {
+                        if (type = "redirect") {
+                            var color = "blue";
+                            if ("f" == request.profile.sex) color = "pink";
+                            $("#circle-login").addClass("background-" + color);
+                            $("#circle-login").animate({
+                                "width": 300,
+                                "height": 300,
+                                "border-radius": 300
+                            }, 400, function () {
+                            });
+                            $("#status-login").animate({
+                                opacity: 0
+                            }, 400, function () {
+                                $("#status-login").css({"display": "none"});
+                                $("#label-login").html(request.profile.firstName.substr(0, 1));
+                                $("#label-login").css({"display": "block", "padding-top": 90, "font-size": 150});
+                                $("#label-login").animate({
+                                    opacity: 1
+                                }, 400, function () {
+                                    setTimeout(function () { window.location = "{{ path("app_dashboard_render") }}"; }, 2000);
+                                });
+                            });
+                        }
+                    } else if (status == "Unauthorized") {
+                        $("#status-login").animate({
+                            opacity: 0
+                        }, 400, function () {
+                            $("#status-login").attr("class", "icon-key");
+                            $("#status-login").animate({ opacity: 1 }, 400, function () {});
+                        });
+                        $("#login-form").show("drop", {direction: "up"}, 400);
+                        notification("topright", "error", "fa fa-exclamation-circle vd_red", "Credenciales invalidas", "El nombre de usuario o contraseña son incorrectas.");
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    notification("topright", "notify", "fa fa-exclamation-triangle vd_yellow", "¡Algo esta mal", "No se ha podido establecer comunicacion.");
+                    $("#status-login").animate({
+                        opacity: 0
+                    }, 400, function () {
+                        $("#status-login").attr("class", "icon-key");
+                        $("#status-login").animate({ opacity: 1 }, 400, function () {});
+                    });
+                    $("#login-form").show("drop", {direction: "up"}, 400);
+                });
+                return false;
+            });
+        });
+
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <!-- Header Ends -->
+    <div class="content" ng-app="AppProevend" ng-controller="controllerComunit">
+        <div class="container">
+
+            <!-- Middle Content Start -->
+
+            <div class="vd_content-wrapper">
+                <div class="vd_container">
+                    <div class="vd_content clearfix">
+                        <div class="vd_content-section clearfix">
+                            <div class="vd_login-page">
+                                <div class="heading clearfix">
+                                    <div class="logo">
+                                        {#<h2 class="mgbt-xs-5"><img src="img/logo.png" alt="logo"></h2>#}
+                                    </div>
+                                    <h4 class="text-center font-semibold vd_grey">Iniciar sesion en Proevende</h4>
+                                </div>
+                                <div id="circle-login" class="login-icon entypo-icon"><i id="status-login"
+                                                                                         class="icon-key"></i><span
+                                            id="label-login"></span></div>
+                                <div id="login-form" class="panel widget ">
+                                    <div class="panel-body">
+
+                                        <form class="form-horizontal"
+                                              action="{{ path("app_login_check") }}" role="form" method="POST">
+                                            <div id="alert-notification" class="alert alert-danger vd_hidden">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true"><i class="icon-cross"></i></button>
+                                                <span class="vd_alert-icon"><i
+                                                            class="fa fa-exclamation-circle vd_red"></i></span><strong>{{ "{{ alert.title }}" }}
+                                                </strong> {{ "{{ alert.mesage }}" }}
+                                            </div>
+                                            <div class="alert alert-success vd_hidden">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true"><i class="icon-cross"></i></button>
+                                                <span class="vd_alert-icon"><i class="fa fa-check-circle vd_green"></i></span><strong>Well
+                                                    done!</strong>.
+                                            </div>
+                                            <div class="form-group  mgbt-xs-20">
+                                                <div class="col-md-12">
+                                                    <div class="label-wrapper sr-only">
+                                                        <label class="control-label" for="email">Usuario o Email</label>
+                                                    </div>
+                                                    <div class="vd_input-wrapper" id="email-input-wrapper"><span
+                                                                class="menu-icon"> <i
+                                                                    class="fa fa-user"></i> </span>
+                                                        <input type="text" placeholder="Usuario o Email" id="email"
+                                                               name="_username"
+                                                               class="required" required>
+                                                    </div>
+                                                    <div class="label-wrapper">
+                                                        <label class="control-label sr-only"
+                                                               for="password">Contrase&ntilde;a</label>
+                                                    </div>
+                                                    <div class="vd_input-wrapper" id="password-input-wrapper"><span
+                                                                class="menu-icon"> <i class="fa fa-lock"></i> </span>
+                                                        <input type="password" placeholder="Contrase&ntilde;a"
+                                                               id="password"
+                                                               name="_password" class="required" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="vd_login-error" class="alert alert-danger hidden"><i
+                                                        class="fa fa-exclamation-circle fa-fw"></i> Please fill the
+                                                necessary field
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-12 text-center mgbt-xs-5">
+                                                    <button class="btn vd_bg-green vd_white width-100" type="submit"
+                                                            id="login-submit">Entrar
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <div><a href="pages-register.html">Registrarse<span
+                                                                            class="menu-icon"><i
+                                                                                class="fa fa-angle-double-right fa-fw"></i></span></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 text-right">
+                                                            <div class=""><a href="pages-forget-password.html">¿Olvido
+                                                                    su contraseña? </a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Panel Widget -->
+
+                            </div>
+                            <!-- vd_login-page -->
+
+                        </div>
+                        <!-- .vd_content-section -->
+
+                    </div>
+                    <!-- .vd_content -->
+                </div>
+                <!-- .vd_container -->
+            </div>
+            <!-- .vd_content-wrapper -->
+
+            <!-- Middle Content End -->
+
+        </div>
+        <!-- .container -->
+    </div>
+    <!-- .content -->
+
+    <!-- Footer Start -->
+    <footer class="footer-2" id="footer">
+        <div class="vd_bottom ">
+            <div class="container">
+                <div class="row">
+                    <div class=" col-xs-12">
+                        <div class="copyright text-center">
+                            Copyright &copy;2016 Proevend - Desarrollado por <a href="www.promarked.com">Promarked</a>
+                        </div>
+                    </div>
+                </div><!-- row -->
+            </div><!-- container -->
+        </div>
+    </footer>
+    <!-- Footer END -->
+
+
+
+{% endblock %}

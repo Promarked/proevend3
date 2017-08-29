@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col col-md-6" ng-repeat="obj in objets">
+        <a href="#" class="link-list">
+            <div class="card text-left">
+
+
+                <div class="card-block">
+                    <div class="card-icon icon-{{ '{{ obj.type }}' }}" >
+                    </div>
+                    <div class="rounded float-left"
+                         style="background: url('{{ asset("uploads/") ~ "{{ obj.photo }}" }}');"></div>
+                    <div class="box-text">
+                        <h4 class="card-title" >{{ "{{obj.name }}" }}</h4>
+                        <p class="card-text">{{ "{{obj.comment }}" }}</p>
+
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <small ng-repeat="x in obj.footer" class="{{ '{{ x.class }}' }}">{{ "{{ x.text }}" }}</small>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>

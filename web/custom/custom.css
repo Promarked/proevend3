@@ -656,3 +656,8 @@ div[data-notify^="container"]{
     max-width: calc(300px - 40px);
     z-index: 1053 !important;
 }
+
+
+.context-menu-open {
+    overflow: hidden;
+}

@@ -1,0 +1,324 @@
+{% extends "AppBundle:Layouts:dashboard_layout.html.twig" %}
+
+{% block title %}Dashboard - {{ parent() }} {% endblock %}
+
+{% block angular %}
+{% endblock %}
+
+{% block body %}
+    <div class="vd_navbar vd_nav-width vd_navbar-tabs-menu vd_navbar-left vd_navbar-style-2  ">
+
+        <div class="navbar-menu clearfix">
+            <h3 id="menu-title" class="menu-title hide-nav-medium hide-nav-small">Dashboard</h3>
+            <div class="vd_menu">
+                <ul>
+                    <li>
+                        <a href="#!">
+                            <span class="menu-icon"><i class="fa fa-dashboard" aria-hidden="true"></i></span>
+                            <span class="menu-text">Dashboard</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!/event" ng-if="current.event.id">
+                            <span class="menu-icon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            <span class="menu-text">
+                                <div data-original-title="{{ '{{current.event.name }}' }}"
+                                     title="{{ '{{current.event.name }}' }}"
+                                     class="menu-text"
+                                     style="max-height: 22px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+                                     data-toggle="tooltip"
+                                     data-placement="right"
+                                     ng-bind="current.event.name">
+                                </div>
+                                <small style="padding-left: 40px;">Todos los eventos</small>
+
+                            </span>
+
+
+                            <span class="menu-badge"></span>
+                        </a>
+                        <a href="#!/event" ng-if="!current.event.id">
+                            <span class="menu-icon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            <span class="menu-text">Todos los eventos</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li ng-if="current.event.id">
+                        <a href="#!/event/{{ '{{ current.event.id}}' }}">
+                            <span class="menu-icon"><i class="fa  fa-bandcamp" aria-hidden="true"></i></span>
+                            <span class="menu-text">Vista general</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li ng-if="current.event.id">
+                        <a href="javascript:void(0);" onclick="onClickMenu(this)" >
+                            <span class="menu-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            <span class="menu-text">Personas</span>
+                            <span class="menu-badge"><span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span></span>
+                        </a>
+                        <div class="child-menu" data-action="click-target">
+                            <ul>
+                                <li>
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/preregisters">
+                                        <span class="menu-icon"><i class="fa fa-user"></i></span>
+                                        <span class="menu-text">Preinscritos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/registers">
+                                        <span class="menu-icon"><i class="fa fa-user-circle"></i></span>
+                                        <span class="menu-text">Inscritos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/resgisters">
+                                        <span class="menu-icon"><i class="fa fa-address-card-o "></i></span>
+                                        <span class="menu-text">Asistentes</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li ng-if="page.event.id">
+                        <a href="#!">
+                            <span class="menu-icon"><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
+                            <span class="menu-text">Patrocinadores</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li ng-if="page.event.id">
+                        <a href="#!">
+                            <span class="menu-icon"><i class="fa fa-history" aria-hidden="true"></i></span>
+                            <span class="menu-text">Registros</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!">
+                            <span class="menu-icon"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                            <span class="menu-text">Medio y Archivos</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li ng-if="current.event.id">
+                        <a href="javascript:void(0);" onclick="onClickMenu(this)">
+                            <span class="menu-icon"><i class="fa fa-cog " aria-hidden="true"></i></span>
+                            <span class="menu-text">Ajustes</span>
+                            <span class="menu-badge"><span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span></span>
+                        </a>
+                        <div class="child-menu" data-action="click-target">
+                            <ul>
+                                <li ng-if="current.event.id">
+                                    <a href="#!">
+                                        <span class="menu-icon">
+                                                <span class="fa fa-calendar-o "></span>
+                                                <span class="fa fa-cog" icon-shum="true"></span>
+                                        </span>
+                                        <span class="menu-text">Configuracion de evento</span>
+
+                                        <span class="menu-badge"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li ng-if="current.event.id">
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/ticket">
+                                        <span class="menu-icon">
+                                                <span class="fa fa-ticket"></span>
+                                        </span>
+                                        <span class="menu-text">Tiquetes</span>
+
+                                        <span class="menu-badge"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li ng-if="current.event.id">
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/segmenter">
+                                        <span class="menu-icon">
+                                                <span class="fa fa-scissors"></span>
+                                                <span class="fa fa-calendar" icon-shum="true"></span>
+                                        </span>
+                                        <span class="menu-text">Sergmentar evento</span>
+
+                                        <span class="menu-badge"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li >
+                    <li ng-if="current.event.id">
+                        <a href="javascript:void(0);" onclick="onClickMenu(this)">
+                            <span class="menu-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
+                            <span class="menu-text">Analisis</span>
+                            <span class="menu-badge"><span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span></span>
+                        </a>
+                        <div class="child-menu" data-action="click-target">
+                            <ul>
+
+                                <li>
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/charts">
+                                        <span class="menu-icon"><i class="fa fa-pie-chart"></i></span>
+                                        <span class="menu-text">Graficas</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!event/{{ '{{ current.event.id}}' }}/insights">
+                                        <span class="menu-icon"><i class="fa fa-file-excel-o"></i></span>
+                                        <span class="menu-text">Datos</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#!/company">
+                            <span class="menu-icon"><i class="fa fa-group" aria-hidden="true"></i></span>
+                            <span class="menu-text">Grupos de trabajo</span>
+                            <span class="menu-badge"></span>
+                        </a>
+
+                    </li>
+                    {#<li>
+                        <a href="#!">
+                            <span class="menu-icon"><i class="fa fa-home"></i></span>
+                            <span class="menu-text">Inicio</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <il><hr/></il>
+                    <li>
+                        <a href="#!event">
+                            <span class="menu-icon"><i class="fa fa-calendar"></i></span>
+                            <span class="menu-text">Eventos</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!company">
+                            <span class="menu-icon"><i class="fa fa-building"></i></span>
+                            <span class="menu-text">Compañias</span>
+                            <span class="menu-badge"></span>
+                        </a>
+                    </li>#}
+
+                </ul>
+                <!-- Head menu search form ends -->
+            </div>
+        </div>
+        <div class="navbar-spacing clearfix">
+        </div>
+        {#<div class="vd_menu vd_navbar-bottom-widget">
+            <ul>
+                <li>
+                    <a href="pages-logout.html">
+                        <span class="menu-icon"><i class="fa fa-sign-out"></i></span>
+                        <span class="menu-text">Logout</span>
+                    </a>
+
+                </li>
+            </ul>
+        </div>#}
+    </div>
+
+
+    <div class="vd_navbar vd_nav-width vd_navbar-chat vd_bg-black-80 vd_navbar-right   ">
+        <div class="navbar-tabs-menu clearfix">
+                <span class="expand-menu" data-action="expand-navbar-tabs-menu">
+                    <span class="menu-icon menu-icon-left">
+                        <i class="fa fa-ellipsis-h"></i>
+                        <span class="badge vd_bg-red">
+                            20
+                        </span>
+                    </span>
+                    <span class="menu-icon menu-icon-right">
+                        <i class="fa fa-ellipsis-h"></i>
+                        <span class="badge vd_bg-red">
+                            20
+                        </span>
+                    </span>
+                </span>
+            <div class="menu-container">
+                <div class="navbar-search-wrapper">
+                    <div class="navbar-search vd_bg-black-30">
+                        <span class="append-icon"><i class="fa fa-search"></i></span>
+                        <input type="text" placeholder="Search"
+                               class="vd_menu-search-text no-bg no-bd vd_white width-70" name="search">
+                        <div class="pull-right search-config">
+                            <a data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle"><span
+                                        class="prepend-icon vd_grey"><i class="fa fa-cog"></i></span></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="navbar-spacing clearfix">
+        </div>
+    </div>
+    <div class="vd_content-wrapper ">
+        <div>
+            <div class="loader" ng-show="!view.loadReady">
+            </div>
+        </div>
+        <div class="vd_container">
+            <div class="vd_content clearfix" id="main" ng-click="actionSelected.un()">
+                <div class="vd_head-section clearfix">
+                    <div class="vd_panel-header">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="ui-panels.html">UI</a></li>
+                            <li class="active">Panels</li>
+                        </ul>
+                        <div class="vd_panel-menu hidden-sm hidden-xs"
+                             data-intro="<strong>Expand Control</strong><br/>To expand content page horizontally, vertically, or Both. If you just need one button just simply remove the other button code."
+                             data-step=5 data-position="left">
+                            {#<div data-action="remove-navbar" data-original-title="Remove Navigation Bar Toggle"
+                                 data-toggle="tooltip" data-placement="bottom"
+                                 class="remove-navbar-button menu"><i class="fa fa-arrows-h"></i></div>
+                            <div data-action="remove-header" data-original-title="Remove Top Menu Toggle"
+                                 data-toggle="tooltip" data-placement="bottom"
+                                 class="remove-header-button menu"><i class="fa fa-arrows-v"></i></div>
+                            <div data-action="fullscreen"
+                                 data-original-title="Remove Navigation Bar and Top Menu Toggle"
+                                 data-toggle="tooltip" data-placement="bottom" class="fullscreen-button menu"><i
+                                        class="glyphicon glyphicon-fullscreen"></i></div>#}
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="vd_title-section clearfix">
+
+                    <div class="vd_panel-header col col-sm-6">
+                        <h1 ng-bind="page.title">Panels</h1>
+                        <small class="subtitle" ng-bind="page.subtitle">Panel Variations</small>
+                    </div>
+                    <div class="col col-sm-6">
+                        <div class="btn-group ctr-pane pull-right" align="center">
+                            <button type="button" class="btn btn-default ctr" ng-repeat="button in page.buttons"
+                                    ng-click="button.click()"><i class="{{ '{{ button.icon }}' }}"></i> <span
+                                        ng-bind="button.label"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="vd_content-section clearfix" ng-view>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

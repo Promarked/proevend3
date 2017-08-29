@@ -170,12 +170,7 @@
 <body id="skin"
       class="full-layout  nav-right-hide nav-right-start-hide nav-left-fixed  responsive content-style-2   clearfix"
       data-active="skin " data-smooth-scrolling="1">
-<div id="context-menu-table" class="dropdown-menu">
-    <a class="dropdown-item"
-       ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
-       ng-if="$$datatable.menuConditional($$datatable.datatable, item)"
-       ng-click="$$datatable.runAction($$datatable.datatable, item)"><i class="{{item.icon }}"></i>{{item.label}}</a>
-</div>
+
 
 
 
@@ -194,7 +189,7 @@
     <div class="content">
 
         <div class="container">
-            <div class="vd_navbar vd_nav-width vd_navbar-no-tab vd_navbar-left vd_navbar-style-2 navbar-scroll vd_bd-gray"
+            <div class="vd_navbar vd_nav-width vd_navbar-no-tab vd_navbar-left vd_navbar-style-2 navbar-scroll vd_bd-white"
                  ng-include="'../includes/menu-view.htm'">
             </div>
             <div class="vd_navbar vd_nav-width vd_navbar-chat vd_bg-black-80 vd_navbar-right"

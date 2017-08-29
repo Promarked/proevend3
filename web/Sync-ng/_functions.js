@@ -14,61 +14,61 @@ var $f = {
         chaset: {
             encode: function (text) {
                 var rp = text;
-                rp = rp.replace("á", '&aacute;');
-                rp = rp.replace("é", '&eacute;');
-                rp = rp.replace("í", '&iacute;');
-                rp = rp.replace("ó", '&oacute;');
-                rp = rp.replace("ú", '&uacute;');
-                rp = rp.replace("ñ", '&ntilde;');
-                rp = rp.replace("ü", '&uuml;');
+                rp = rp.replace("ï¿½", '&aacute;');
+                rp = rp.replace("ï¿½", '&eacute;');
+                rp = rp.replace("ï¿½", '&iacute;');
+                rp = rp.replace("ï¿½", '&oacute;');
+                rp = rp.replace("ï¿½", '&uacute;');
+                rp = rp.replace("ï¿½", '&ntilde;');
+                rp = rp.replace("ï¿½", '&uuml;');
                 //
-                rp = rp.replace("Á", '&Aacute;');
-                rp = rp.replace("É", '&Eacute;');
-                rp = rp.replace("Í", '&Iacute;');
-                rp = rp.replace("Ó", '&Oacute;');
-                rp = rp.replace("Ú", '&Uacute;');
-                rp = rp.replace("Ñ", '&Ntilde;');
-                rp = rp.replace("Ü", '&Uuml;');
+                rp = rp.replace("ï¿½", '&Aacute;');
+                rp = rp.replace("ï¿½", '&Eacute;');
+                rp = rp.replace("ï¿½", '&Iacute;');
+                rp = rp.replace("ï¿½", '&Oacute;');
+                rp = rp.replace("ï¿½", '&Uacute;');
+                rp = rp.replace("ï¿½", '&Ntilde;');
+                rp = rp.replace("ï¿½", '&Uuml;');
 
                 return rp;
             },
             decode: function (text) {
                 var rp = String(text);
                 //
-                rp = rp.replace("&aacute;", 'á');
-                rp = rp.replace("&eacute;", 'é');
-                rp = rp.replace("&iacute;", 'í');
-                rp = rp.replace("&oacute;", 'ó');
-                rp = rp.replace("&uacute;", 'ú');
-                rp = rp.replace("&ntilde;", 'ñ');
-                rp = rp.replace("&uuml;", 'ü');
+                rp = rp.replace("&aacute;", 'ï¿½');
+                rp = rp.replace("&eacute;", 'ï¿½');
+                rp = rp.replace("&iacute;", 'ï¿½');
+                rp = rp.replace("&oacute;", 'ï¿½');
+                rp = rp.replace("&uacute;", 'ï¿½');
+                rp = rp.replace("&ntilde;", 'ï¿½');
+                rp = rp.replace("&uuml;", 'ï¿½');
                 //
-                rp = rp.replace("&Aacute;", 'Á');
-                rp = rp.replace("&Eacute;", 'É');
-                rp = rp.replace("&Iacute;", 'Í');
-                rp = rp.replace("&Oacute;", 'Ó');
-                rp = rp.replace("&Uacute;", 'Ú');
-                rp = rp.replace("&Ñtilde;", 'Ñ');
-                rp = rp.replace("&Üuml;", 'Ü');
+                rp = rp.replace("&Aacute;", 'ï¿½');
+                rp = rp.replace("&Eacute;", 'ï¿½');
+                rp = rp.replace("&Iacute;", 'ï¿½');
+                rp = rp.replace("&Oacute;", 'ï¿½');
+                rp = rp.replace("&Uacute;", 'ï¿½');
+                rp = rp.replace("&ï¿½tilde;", 'ï¿½');
+                rp = rp.replace("&ï¿½uml;", 'ï¿½');
                 //
                 return rp;
             }
         },
         normalize: function (text) {
             var rp = String(text);
-            rp = rp.replace("á", 'a');
-            rp = rp.replace("é", 'e');
-            rp = rp.replace("í", 'i');
-            rp = rp.replace("ó", 'o');
-            rp = rp.replace("ú", 'u');
-            rp = rp.replace("ü", 'u');
+            rp = rp.replace("ï¿½", 'a');
+            rp = rp.replace("ï¿½", 'e');
+            rp = rp.replace("ï¿½", 'i');
+            rp = rp.replace("ï¿½", 'o');
+            rp = rp.replace("ï¿½", 'u');
+            rp = rp.replace("ï¿½", 'u');
             //
-            rp = rp.replace("Á", 'A');
-            rp = rp.replace("É", 'E');
-            rp = rp.replace("Í", 'I');
-            rp = rp.replace("Ó", 'O');
-            rp = rp.replace("Ú", 'U');
-            rp = rp.replace("Ü", 'U');
+            rp = rp.replace("ï¿½", 'A');
+            rp = rp.replace("ï¿½", 'E');
+            rp = rp.replace("ï¿½", 'I');
+            rp = rp.replace("ï¿½", 'O');
+            rp = rp.replace("ï¿½", 'U');
+            rp = rp.replace("ï¿½", 'U');
             return rp;
         },
         hasIgnoreFormat: function (find, text) {
@@ -83,6 +83,7 @@ var $f = {
 
 
 function appFunctions($routeParams, $rootScope, $http) {
+    $rootScope.hincludes = hincludes;
     $(".content").click(function () {
         $rootScope.$$root.hideNofifymenu();
     });
@@ -579,8 +580,9 @@ function appFunctions($routeParams, $rootScope, $http) {
             if (!is)
                 this.datatables[name].selected = [object.id];
 
-            $('#context-menu-table').css({"position": "absolute", "top": e.pageY, "left": e.pageX, "display": "block"});
+            $('#context-menu-table').css({"position": "fixed", "top": e.pageY, "left": e.pageX, "display": "block"});
             $('#context-menu-table').show();
+            $('body').addClass('context-menu-open');
             showable = false;
 
         },

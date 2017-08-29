@@ -1,0 +1,50 @@
+
+<script>
+
+
+    $(function () {
+        autosize($('#appbundle_ticket_commnet'));
+    });
+
+
+</script>
+<style>
+    .input-6 {
+        width: 50% !important;
+    }
+    .ctrl-right-number {
+        float: right;
+        width: 40px;
+        height: 37px;
+        cursor: pointer;
+    }
+
+    .ctrl-left-number + input {
+        width: calc(100% - 80px);
+    }
+
+    .ctrl-left-number {
+        float: left;
+        width: 40px;
+        height: 37px;
+        cursor: pointer;
+    }
+</style>
+
+{{ form_start(form, {'attr':{'id':'form-add-ticket','method':'post', 'class':'current'}}) }}
+
+<div class="controls">
+    {{ form_widget(form.name) }}
+</div>
+<div class="controls">
+    {{ form_widget(form.commnet) }}
+</div>
+
+
+<div class="controls">
+    {{ form_widget(form.price) }}
+</div>
+
+
+
+{{ form_end(form) }}

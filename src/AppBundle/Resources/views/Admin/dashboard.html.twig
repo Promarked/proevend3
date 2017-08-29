@@ -1,0 +1,92 @@
+{% extends "AppBundle:Layouts:dashboard_layout.html.twig" %}
+
+
+{% block angular %}
+    {#<script src="{{ asset('SyncManager/__Init.js') }}"></script>
+    <script src="{{ asset('SyncManager/__Config.js') }}"></script>
+    <script src="{{ asset('SyncManager/__Run.js') }}"></script>
+    <script src="{{ asset('SyncManager/__Controlles.js') }}"></script>#}
+
+    <!-- Sync NG Scripts -->
+    <script>
+        var hincludes= {
+            root:"{{ asset('/') }}",
+            menu: "{{ asset('includes/menu-view.htm') }}",
+            content : "{{ asset('includes/content-view.htm') }}",
+            modal:"{{ asset('includes/modal-view.htm') }}",
+            datatable: "{{ asset('includes/datatable-view.htm') }}",
+            form:"{{ asset('includes/form-view.htm') }}",
+            footer:"{{ asset('includes/footer-view.htm') }}",
+            chatbar:"{{ asset('includes/chat-bar-view.htm') }}",
+            header:"{{ asset('includes/header-view.htm') }}"
+        }
+    </script>
+    <script src="{{ asset('Sync-ng/_data.js')  }}" ></script>
+    <script src="{{ asset('Sync-ng/_preforms.js') }}"></script>
+    <script src="{{ asset('Sync-ng/_services.js') }}"></script>
+    <script src="{{ asset('Sync-ng/_functions.js') }}"></script>
+    <script src="{{ asset('Sync-ng/_init.js') }}"></script>
+    <script src="{{ asset('Sync-ng/_config.js') }}"></script>
+    <script src="{{ asset('Sync-ng/_controllers.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true"  ng-include="hincludes.modal">
+    </div>
+    <div class="vd_body">
+        <!-- Header Start -->
+        <header class="header-3 fixed-top" id="header" ng-include="hincludes.header">
+
+
+        </header>
+        <!-- Header Ends -->
+        <div class="content">
+
+            <div class="container">
+                <div class="vd_navbar vd_nav-width vd_navbar-no-tab vd_navbar-left vd_navbar-style-2 navbar-scroll vd_bd-white"
+                     ng-include="hincludes.menu">
+                </div>
+                <div class="vd_navbar vd_nav-width vd_navbar-chat vd_bg-black-80 vd_navbar-right"
+                     ng-include="hincludes.chatbar">
+                </div>
+                <!-- Middle Content Start -->
+
+                <div class="vd_content-wrapper"
+                     ng-init="$$page.include.database=hincludes.datatable; $$datatable.datatable='persons'"
+                     ng-include="hincludes.content">
+
+                </div>
+
+                <!-- .vd_content-wrapper -->
+
+                <!-- Middle Content End -->
+
+            </div>
+            <!-- .container -->
+        </div>
+        <!-- .content -->
+
+        <button id="modal_button" class="btn btn-primary " data-toggle="modal" data-target="#myModal"> Launch demo modal </button>
+        <!-- Footer Start -->
+        <footer class="footer-2" id="footer" ng-include="hincludes.footer">
+
+        </footer>
+        <!-- Footer END -->
+
+    </div>
+
+    <!-- .vd_body END  -->
+    <!--<a id="back-top" href="../#" data-action="backtop" class="vd_back-top visible"> <i class="fa  fa-angle-up"> </i> </a>
+    <!--
+    <a class="back-top" href="../#" id="back-top"> <i class="icon-chevron-up icon-white"> </i> </a> -->
+
+
+
+
+    <!-- Specific Page Scripts END -->
+
+
+    <!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information. -->
+
+{% endblock %}

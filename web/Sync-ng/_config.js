@@ -9,7 +9,7 @@ ngapp.config(function ($routeProvider, $httpProvider, $provide, $interpolateProv
 
     $routeProvider
         .when('/', {
-            templateUrl: '../includes/content-view.htm',
+            templateUrl: hincludes.content,
             controller: 'MainController'
         })
 
@@ -129,13 +129,13 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             }
             },
             {
-                value: "Cambiar contraseña", icon: "fa fa-key", action: function () {
+                value: "Cambiar contraseï¿½a", icon: "fa fa-key", action: function () {
                 $rootScope.$$modal.show();
             }
             },
             {
-                value: "Cerrar sesión", icon: "fa fa-sign-out", action: function () {
-                console.log("-->Cerrar sesió");
+                value: "Cerrar sesiï¿½n", icon: "fa fa-sign-out", action: function () {
+                console.log("-->Cerrar sesiï¿½");
             }
             }
         ], "Usuario"

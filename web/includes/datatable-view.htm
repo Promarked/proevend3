@@ -41,6 +41,12 @@
 
         </tbody>
     </table>
+    <div id="context-menu-table" class="dropdown-menu">
+        <a class="dropdown-item"
+           ng-repeat="item in $$datatable.getView($$datatable.datatable).menu"
+           ng-if="$$datatable.menuConditional($$datatable.datatable, item)"
+           ng-click="$$datatable.runAction($$datatable.datatable, item)"><i class="{{item.icon }}"></i>{{item.label}}</a>
+    </div>
     <script>
         var theadClone = $('#data-table thead').clone();
         theadClone.addClass("theadclone");
@@ -51,6 +57,7 @@
             if (!showable)
                 $.wait(function () {
                     $('#context-menu-table').css({"display":"none"});
+                    $('body').removeClass('context-menu-open');
                 }, 0.0);
         });
 

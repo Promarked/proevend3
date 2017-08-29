@@ -1,0 +1,19 @@
+<div class="row">
+<div class="col-md-3 col-xl-4 pull-left">
+    <div class="input-content">
+        <i class="fa fa-search"></i>
+        <input class="inp-single" ng-model="data.search"/>
+    </div>
+</div>
+<div class="col-md-0 col-lg-0 col-xl-2 hidden-md">
+</div>
+<div class="col-md-8 col-lg-9 col-xl-6 pull-right">
+    <div class="btn-group btn-group-justified mgbt-xs-20 ">
+        <a role="button" class="btn btn-default" ng-if="menu.add.show" ng-click="menu.add.action()"><i class="fa fa-plus"></i> Nuevo</a>
+        <a role="button" class="btn btn-default" ng-if="menu.view.show" ng-click="menu.view.action()"><i class="fa fa-eye-slash"></i> Ver</a>
+        <a role="button" class="btn btn-default" ng-if="menu.edit.show" ng-click="menu.edit.action()"><i class="fa fa-edit"></i> Editar</a>
+        <a role="button" class="btn btn-default" ng-if="menu.delete.show" ng-click="menu.delete.action()"><i class="fa fa-trash"></i> Eliminar</a>
+        <a role="button" class="btn btn-default" ng-if="menu.reload.show" ng-click="menu.reload.action()"><i class="fa fa-refresh"></i> Actualizar</a>
+    </div>
+</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="col-md-12">
+    <div class="panel widget" ng-if="data.objects.length > 0">
+
+        <div class="panel-body-list table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>
+                        <a href="javascript:void(0)" ng-click="data.addSelectedAll()">
+                            <i class="fa fa-check-square fa-2x" ng-show="data.isSelectedAll()"></i>
+                            <i class="fa fa-square-o fa-2x" aria-hidden="true" ng-show="!data.isSelectedAll()"></i>
+                        </a>
+                    </th>
+                    <th ng-repeat="column in datatable.columns" ng-bind="column.label">#</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-if="data.objects.length > 0" ng-repeat="(i,obj) in data.objects" style="cursor: pointer"
+                    class="[[ data.isSelected(obj)? 'selected-row':'']]">
+
+                    <td style="width: 70px" ng-click="data.addSelected(obj)">
+                        <i class="[[datatable.icon]] fa-2x" aria-hidden="true"></i>
+                        <i class="fa fa-check fa" aria-hidden="true" ng-show="data.isSelected(obj)"
+                           style="float: left"></i>
+                    </td>
+                    <td ng-repeat="column in datatable.columns" ng-click="data.selected(obj)"
+                        ng-dblclick="data.onDbl(obj)"><label ng-bind="data.get(obj,column.name)"></label></td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col col-md-12" ng-if="(data.objects.length < 1 || data.objects.length==undefined) && data.ready">
+        <div class="jumbotron well no-result">
+            <h1 class="display-3">Sin resultados</h1>
+            <p class="lead">Esta lista esta vacias</p>
+            <hr class="my-4">
+            <p>Para crear un nuevo elemento presione el boton <strong>Nuevo</strong> que se encuentra en la parte
+                superio de la pagina.</p>
+            <p class="lead">
+
+            </p>
+        </div>
+    </div>
+    <!-- Panel Widget -->
+    {#<ul class="pagination">
+        <li><a href="#">«</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">»</a></li>
+    </ul>#}
+</div>

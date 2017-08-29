@@ -1,0 +1,111 @@
+<div class="col-md-12">
+    <div class="panel widget" ng-repeat="d in datatime.daysArray">
+        <div class="panel-heading vd_bg-white-90">
+            <h3 ng-bind="'Dia' +d "></h3>
+
+            {#<h3 class="panel-title"><span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Table No Padding
+                &amp; Rounded Icon </h3>#}
+
+        </div>
+        <div class="panel-body-list table-responsive">
+            <div class="line-time" ng-repeat="h in datatime.hoursArray" style="min-width: {{ '{{ datatime.minWidth }}' }}px">
+                <div class="hour-time"><span ng-bind="h"></span>
+                    <small>:00</small>
+                </div>
+                <div class="hour-segment">
+                    <div ng-repeat="( i,data) in datas " ng-if="isShowLineTime(data,d,h)">
+                        <div class="moment-segment" ng-click="setectSegment(data)"
+                             style="top: {{ '{{ data.startDate.getMinutes() }}' }}px;
+                                     left: {{ '{{ data.positionLine }}' }}px ;
+                                     background: {{ '{{ data.backgroundColor  }}' }};
+                                     border: 3px solid {{ '{{ data.borderColor }}' }};
+                                     height: {{ '{{ isShowLineTime(data,d,h) ? getHeightLineTime(data,d,h) : 0 }}' }}px;
+                                     ">
+                            <span class="label label-default" ng-bind="data.name"
+                                  style="background: {{ '{{ data.borderColor }}' }}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Panel Widget -->
+    {#<ul class="pagination">
+        <li><a href="#">«</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">»</a></li>
+    </ul>#}
+</div>
+<div id="dialog-add-time" class="panel-dialog" >
+    <div class="panel widget light-widget">
+        <div class="panel-heading no-title">
+            <div class="vd_panel-menu">
+                <div class="menu entypo-icon" data-placement="bottom" data-toggle="tooltip" data-original-title="Close"
+                     onclick="$('#dialog-add-time').removeClass('show');$('#dialog-add-time form').resetForm()"
+                     data-action="close"><i class="icon-cross"></i></div>
+            </div>
+            <!-- vd_panel-menu -->
+
+        </div>
+        <div class="panel-body-list">
+            <script>
+                initTimePicket();
+                initAutoSizeText();
+            </script>
+            <h2 class="pd-15 mgtp--5"><strong ng-bind="form.type">Nuevo</strong> <em class="vd_soft-grey">Segmento</em></h2>
+            <div class="content-list content-image menu-action-right" >
+                <div>
+                    <form>
+                        <div class="controls">
+                            <input type="text" ng-model="form.name" placeholder="Nombre" class="input-border-btm"
+                                   />
+                        </div>
+
+                        <div class="controls">
+                            <select ng-model="form.dayStart" class="input-border-btm" required="required" style="width: 60px">
+                                <option value="" label="Dia"></option>
+                                <option ng-repeat="days in datatime.daysArray" value="{{ '{{ days }}' }}"
+                                        label="{{ '{{ days }}' }}"></option>
+                            </select><input ng-model="form.timeStart" type="text" placeholder="Hora" class="input-border-btm input-time"
+                                            style="height: 30px; width: calc(100% - 60px)"/>
+                            <span class="help-inline">Inicio</span>
+
+                        </div>
+                        <br>
+                        <div class="controls">
+                            <select ng-model="form.dayEnd" class="input-border-btm" style="width: 60px" required="required">
+                                <option value="" label="Dia"></option>
+                                <option ng-repeat="days in datatime.daysArray" value="{{ '{{ days }}' }}"
+                                        label="{{ '{{ days }}' }}"></option>
+                            </select><input  ng-model="form.timeEnd"  type="text" placeholder="Hora" class="input-border-btm input-time"
+                                            style="height: 30px; width: calc(100% - 60px)"/>
+                            <span class="help-inline">Final</span>
+                        </div>
+                        <br/>
+                        <div class="controls">
+                            <input type="text" ng-model="form.place"  placeholder="Lugar (Opcional)" class="input-border-btm"
+                            />
+                        </div>
+
+                        <div class="controls">
+                            <textarea type="text" ng-model="form.commert" placeholder="Comentario (Opcional)" class="input-border-btm aurosize"
+                            />
+                        </div>
+                        <div class="controls">
+                            <button class="btn btn-success" ng-if="form.type=='Editar'" ng-click="submitForm()">Cambiar</button>
+                            <button class="btn btn-success" ng-if="form.type=='Nuevo'" ng-click="submitForm()">Agregar</button>
+                        </div>
+
+                    </form>
+                </div>
+                {#<div class="closing text-center"><a href="#">See All Recent Reviews <i
+                                class="fa fa-angle-double-right"></i></a></div>#}
+            </div>
+        </div>
+    </div>
+    <!-- Panel Widget -->
+</div>

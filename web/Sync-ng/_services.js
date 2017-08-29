@@ -11,10 +11,10 @@ function Service ($http, $scope) {
     this.setGateway = function (name, url, options) {
         var gateway = {
             route:url,
-            create:options && options.create? options.create:'.create',
-            edit:options && options.edit? options.edit:'.edit',
-            delete:options && options.edit? options.delete:'.delete',
-            view:options && options.edit? options.get:'.json',
+            create:options && options.create? url + options.create:'.create',
+            edit:options && options.edit? url + options.edit:'.edit',
+            delete:options && options.delete? url + options.delete:'.delete',
+            view:options && options.get? url + options.get:'.json',
             listView:options && options.listView? options.listView:undefined,
         }
         this.$gateway[name]= gateway;
@@ -39,7 +39,10 @@ function Service ($http, $scope) {
         data.$inprocess = "create";
         this.$temp.data[name][data.$tid]=data;
         if(this.$gateway[name].listView!=undefined){
-            this.$gateway[name].listView.datas.push(data);
+            if(this.$gateway[name].listView.tempData!=undefined)
+                this.$gateway[name].listView.tempData.push(data);
+            else
+                this.$gateway[name].listView.tempData=[data];
         }
     };
     this.edit= function (name, data, fn) {
@@ -48,13 +51,16 @@ function Service ($http, $scope) {
         }else{
             data.$inprocess = "edit";
         }
-
     };
     this.delete= function (name, data, fn) {
         data.$inprocess = "delect";
     };
     this.list= function (name, fn) {
+        this.$http.get(this.$gateway[name].get).
+            then(function (response) {
 
+            }
+        );
     };
     this.get= function (name, id ,fn) {
 
