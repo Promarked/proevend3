@@ -25,6 +25,14 @@ function Service ($http, $scope) {
         this.$gateway[name].listView = listView;
     }
 
+    this.persist= function (name, data, fn) {
+        if(data.id==undefined){
+            this.create(name, data, fn);
+        }else{
+            this.edit(name, data, fn);
+        }
+    };
+
     this.create= function (name, data, fn) {
         data.$tid=this.uniqid();
         data.id=this.uniqid();
@@ -35,7 +43,12 @@ function Service ($http, $scope) {
         }
     };
     this.edit= function (name, data, fn) {
-        data.$inprocess = "edit";
+        if(data.$inprocess!=undefined){
+            this.$temp.data[name][data.$tid]=data;
+        }else{
+            data.$inprocess = "edit";
+        }
+
     };
     this.delete= function (name, data, fn) {
         data.$inprocess = "delect";

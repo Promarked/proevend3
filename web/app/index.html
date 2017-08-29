@@ -92,9 +92,9 @@
 
 
     <!-- Head SCRIPTS -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://bootstrap-notify.remabledesigns.com/js/bootstrap-notify.min.js" type="text/javascript"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="../plugins/jquery/jquery.min.js"></script>
+    <script src="../plugins/bootstrap-notify/bootstrap-notify.js" type="text/javascript"></script>
+    <script src="../plugins/bootstrap-notify/highlight.min.js"></script>
 
 
     <script type="text/javascript" src="../js/modernizr.js"></script>
@@ -194,15 +194,16 @@
     <div class="content">
 
         <div class="container">
-            <div class="vd_navbar vd_nav-width vd_navbar-no-tab vd_navbar-left vd_navbar-style-2 navbar-scroll vd_bd-white" ng-include="'../includes/menu-view.htm'">
-
+            <div class="vd_navbar vd_nav-width vd_navbar-no-tab vd_navbar-left vd_navbar-style-2 navbar-scroll vd_bd-gray"
+                 ng-include="'../includes/menu-view.htm'">
             </div>
-            <div class="vd_navbar vd_nav-width vd_navbar-chat vd_bg-black-80 vd_navbar-right" ng-include="'../includes/chat-bar-view.htm'">
-
+            <div class="vd_navbar vd_nav-width vd_navbar-chat vd_bg-black-80 vd_navbar-right"
+                 ng-include="'../includes/chat-bar-view.htm'">
             </div>
             <!-- Middle Content Start -->
 
-            <div class="vd_content-wrapper" ng-init="$$page.include.database='../includes/datatable-view.htm'; $$datatable.datatable='persons'"
+            <div class="vd_content-wrapper"
+                 ng-init="$$page.include.database='../includes/datatable-view.htm'; $$datatable.datatable='persons'"
                  ng-include="'../includes/content-view.htm'">
 
             </div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a1faddb3-66dc-4987-897c-c9d10ce1fcc3" name="Proevend" url="http://162.251.86.113/academiceventpro/web">
+        <fileTransfer host="162.251.86.113" port="22" rootFolder="/var/www/academiceventpro" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

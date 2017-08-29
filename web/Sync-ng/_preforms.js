@@ -4,7 +4,7 @@
 var preforms={
     person:{
         fields: [
-            {name: "status", label: "Tipo de persona", options:["Inscrito", "Preinscrito"],type: "select", value:"Inscrito", "required":true},
+            {name: "status", label: "Tipo de persona", options:["Inscrito", "Preinscrito"],type: "select", value:"Inscrito", valueLabel:"Inscrito", "required":true},
 
             {name: "typeNumber", label: "Tipo de identificacion", options:["Cedula de ciudadania", "Tarjeta de identidad", "Pasaporte"],type: "select", col: "2", "required":true},
             {name: "idNumber", label: "Numero de identificacion", type: "input", col: "2", "required":true},

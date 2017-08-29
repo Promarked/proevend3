@@ -191,9 +191,10 @@ function appFunctions($routeParams, $rootScope, $http) {
                 }
             }
 
-            if (control.type == "autocomplete") {
+            if (control.type == "autocomplete" && control.value!==undefined) {
                 if (value != undefined) control.value = value;
                 control.class = "";
+
                 var value = control.value.replace("  ", " ").cleanAccents();
                 value = control.value.replace(/,|\s/, "(.)*");
                 var results = [], isExact = false;
@@ -313,7 +314,7 @@ function appFunctions($routeParams, $rootScope, $http) {
                         }
                     }
                 } else {
-                    controls[i].value = "";
+                    //controls[i].value = "";
                 }
             }
 
@@ -327,6 +328,21 @@ function appFunctions($routeParams, $rootScope, $http) {
         reset: function (name) {
             for (var i = 0; i < this.get(name).controls.length; i++) {
                 this.data.form[name].controls[i].class = "";
+            }
+            this.data.form[name].dataEntity = undefined;
+        },
+        setData: function (name, object) {
+            console.log(">>> Set Entity");
+            this.data.form[name].dataEntity = object;
+            for (var i = 0; i < this.get(name).controls.length; i++) {
+                this.data.form[name].controls[i].value = object[this.data.form[name].controls[i].name];
+                if(this.data.form[name].controls[i].type=="select"){
+                    for(var j=0; j< this.data.form[name].controls[i].options.length; j++){
+                        if(this.data.form[name].controls[i].options[j].value == this.data.form[name].controls[i].value){
+                            this.data.form[name].controls[i].valueLabel = this.data.form[name].controls[i].options[j].label;
+                        }
+                    }
+                }
             }
         },
         submit: function (name) {
@@ -351,16 +367,19 @@ function appFunctions($routeParams, $rootScope, $http) {
                     type: 'danger'
                 });
             } else {
-                $.notify({
-                    title: '<h2>Datos Correctos</h2>',
-                    message: 'Enviando datos.'
-                }, {
-                    type: 'info'
-                });
+                if(this.data.form[name].dataEntity!=undefined){
+                    console.log(">>> Editar Entity");
+                    var obj = this.data.form[name].dataEntity;
+                    for (var i = 0; i < controls.length; i++) {
+                        var control = controls[i];
+                        obj[control.name] = control.value;
+                    }
+                    this.data.form[name].action(obj);
+                }else{
+                    console.log(">>> Crear Entity");
+                    this.data.form[name].action(data);
+                }
 
-
-                console.log("Ejecutando Action");
-                this.data.form[name].action(data);
 
                 if(name=="modal")
                     $$modal.hide();

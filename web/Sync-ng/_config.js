@@ -168,7 +168,7 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
     )
 
     $$form.add("person", preforms.person.fields, "Agregar persona", "Guardar", "Cancelar",function (data) {
-        $service.create("person",data, function () {
+        $service.persist("person",data, function () {
 
         });
     });
@@ -194,7 +194,11 @@ ngapp.controller('MainController', function ($scope, $routeParams, $http, $rootS
             return false;
         }},
         {label:"Editar", icon:"fa fa-pencil-square-o", nav:true,if:function (object, count) { return count==1 },"action":function (obj) {
-            $.notify("Editar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
+            $$modal.setForm("person", {title:"Agregar Persona"});
+            $$modal.resetForm();
+            $$form.setData("modal", obj);
+            $$modal.show();
+            return false;
         }},
         {label:"Borrar", icon:"fa fa-trash","action":function (obj) {
             $.notify("Borrar a <b>"+obj.firstName+' '+obj.lastName+' </b>');
